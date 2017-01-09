@@ -13,8 +13,8 @@ import java.util.List;
  * Simple workout the lasts a specific distance with a pace target
  */
 @RequiredArgsConstructor
-@EqualsAndHashCode
-public class PaceIntervalWorkout extends WorkoutStep {
+@EqualsAndHashCode(callSuper = false)
+public class PaceIntervalWorkoutStep extends WorkoutStep {
     private final int intervalCount;
     private final Distance intervalDistance;
     private final Distance recoveryDistance;
@@ -27,15 +27,9 @@ public class PaceIntervalWorkout extends WorkoutStep {
     }
 
     @Override
-    public List<Mesg> generateWorkout() {
-        List<Mesg> result = new ArrayList<>();
-        WorkoutMesg workout = new WorkoutMesg();
-        workout.setWktName(getName());
-        workout.setSport(Sport.RUNNING);
-        workout.setCapabilities(32L);
-        result.add(workout);
-        int stepCount=0;
-        
+    public List<WorkoutStepMesg> generateWorkoutSteps() {
+        List<WorkoutStepMesg> result = new ArrayList<>();
+
         WorkoutStepMesg intervalStep = new WorkoutStepMesg();
         intervalStep.setIntensity(Intensity.ACTIVE);
         intervalStep.setDurationType(WktStepDuration.DISTANCE);
@@ -44,10 +38,8 @@ public class PaceIntervalWorkout extends WorkoutStep {
         intervalStep.setTargetValue(0L);
         intervalStep.setCustomTargetValueLow(intervalPaceTarget.getGarminLow());
         intervalStep.setCustomTargetValueHigh(intervalPaceTarget.getGarminHigh());
-        intervalStep.setMessageIndex(stepCount);
-        int startIntervalIndex = stepCount;
+        intervalStep.setMessageIndex(generateWorkoutStepIndex());
         result.add(intervalStep);
-        stepCount++;
 
         WorkoutStepMesg recoveryStep = new WorkoutStepMesg();
         recoveryStep.setIntensity(Intensity.ACTIVE);
@@ -57,21 +49,17 @@ public class PaceIntervalWorkout extends WorkoutStep {
         recoveryStep.setTargetValue(0L);
         recoveryStep.setCustomTargetValueLow(recoveryPaceTarget.getGarminLow());
         recoveryStep.setCustomTargetValueHigh(recoveryPaceTarget.getGarminHigh());
-        recoveryStep.setMessageIndex(stepCount);
+        recoveryStep.setMessageIndex(generateWorkoutStepIndex());
         result.add(recoveryStep);
-        stepCount++;
 
         WorkoutStepMesg repeatStep = new WorkoutStepMesg();
         repeatStep.setIntensity(Intensity.INVALID);
         repeatStep.setDurationType(WktStepDuration.REPEAT_UNTIL_STEPS_CMPLT);
-        repeatStep.setDurationValue((long)startIntervalIndex);
+        repeatStep.setDurationValue((long)intervalStep.getMessageIndex());
         repeatStep.setTargetType(WktStepTarget.INVALID);
         repeatStep.setTargetValue((long)intervalCount);
-        repeatStep.setMessageIndex(stepCount);
+        repeatStep.setMessageIndex(generateWorkoutStepIndex());
         result.add(repeatStep);
-        stepCount++;
-
-        workout.setNumValidSteps(stepCount);
 
         return result;
     }

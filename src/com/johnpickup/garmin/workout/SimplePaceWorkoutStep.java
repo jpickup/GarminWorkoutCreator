@@ -7,14 +7,15 @@ import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Simple workout the lasts a specific distance with a pace target
  */
 @RequiredArgsConstructor
-@EqualsAndHashCode
-public class SimplePaceWorkout extends WorkoutStep {
+@EqualsAndHashCode(callSuper = false)
+public class SimplePaceWorkoutStep extends WorkoutStep {
     private final Distance distance;
     private final PaceTarget paceTarget;
 
@@ -24,26 +25,17 @@ public class SimplePaceWorkout extends WorkoutStep {
     }
 
     @Override
-    public List<Mesg> generateWorkout() {
-        WorkoutMesg workout = new WorkoutMesg();
-        workout.setNumValidSteps(1);
-        workout.setWktName(getName());
-        workout.setSport(Sport.RUNNING);
-        workout.setCapabilities(32L);
-
+    public List<WorkoutStepMesg> generateWorkoutSteps() {
         WorkoutStepMesg step = new WorkoutStepMesg();
         step.setIntensity(Intensity.ACTIVE);
         step.setDurationType(WktStepDuration.DISTANCE);
         step.setDurationDistance(distance.toGarminDistance());
         step.setTargetType(WktStepTarget.SPEED);
         step.setTargetValue(0L);
+        step.setMessageIndex(generateWorkoutStepIndex());
         step.setCustomTargetValueLow(paceTarget.getGarminLow());
         step.setCustomTargetValueHigh(paceTarget.getGarminHigh());
 
-        List<Mesg> result = new ArrayList<>();
-        result.add(workout);
-        result.add(step);
-
-        return result;
+        return Collections.singletonList(step);
     }
 }

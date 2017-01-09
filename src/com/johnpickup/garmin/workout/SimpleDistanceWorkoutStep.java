@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class SimpleDistanceWorkout extends WorkoutStep {
+public class SimpleDistanceWorkoutStep extends WorkoutStep {
     private final Distance distance;
 
     @Override
@@ -22,24 +23,15 @@ public class SimpleDistanceWorkout extends WorkoutStep {
     }
 
     @Override
-    public List<Mesg> generateWorkout() {
-        WorkoutMesg workout = new WorkoutMesg();
-        workout.setNumValidSteps(1);
-        workout.setWktName(getName());
-        workout.setSport(Sport.RUNNING);
-        workout.setCapabilities(32L);
-
+    public List<WorkoutStepMesg> generateWorkoutSteps() {
         WorkoutStepMesg step = new WorkoutStepMesg();
         step.setIntensity(Intensity.ACTIVE);
         step.setDurationType(WktStepDuration.DISTANCE);
         step.setDurationDistance(distance.toGarminDistance());
         step.setTargetType(WktStepTarget.OPEN);
+        step.setMessageIndex(generateWorkoutStepIndex());
         step.setTargetValue(0L);
 
-        List<Mesg> result = new ArrayList<>();
-        result.add(workout);
-        result.add(step);
-
-        return result;
+        return Collections.singletonList(step);
     }
 }

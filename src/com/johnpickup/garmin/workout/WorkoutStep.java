@@ -10,6 +10,15 @@ import java.util.Date;
 import java.util.List;
 
 public abstract class WorkoutStep {
-    protected abstract List<Mesg> generateWorkout();
+    private static int stepIndex = 0;
+
+    public static void startNewWorkout() {
+        stepIndex = 0;
+    }
+
+    protected abstract List<WorkoutStepMesg> generateWorkoutSteps();
     public abstract String getName();
+    protected Integer generateWorkoutStepIndex() {
+        return stepIndex++;
+    }
 }

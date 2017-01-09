@@ -1,6 +1,7 @@
 package com.johnpickup.parser;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
@@ -11,7 +12,9 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class Distance {
+    @Getter
     private final double quantity;
+    @Getter
     private final DistanceUnit unit;
 
 }

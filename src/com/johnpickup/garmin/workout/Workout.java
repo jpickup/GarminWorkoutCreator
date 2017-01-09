@@ -66,9 +66,20 @@ public  class Workout implements FitGenerator {
     @Override
     public List<Mesg> generate() {
         List<Mesg> messages = createMessageHeader();
+        WorkoutMesg workout = new WorkoutMesg();
+        workout.setWktName(getName());
+        workout.setSport(Sport.RUNNING);
+        workout.setCapabilities(32L);
+        messages.add(workout);
+
+        WorkoutStep.startNewWorkout();
+        List<WorkoutStepMesg> allWorkoutStepMesgs = new ArrayList<>();
         for (WorkoutStep step : steps) {
-            messages.addAll(step.generateWorkout());
+            List<WorkoutStepMesg> workoutStepMesgs = step.generateWorkoutSteps();
+            allWorkoutStepMesgs.addAll(workoutStepMesgs);
         }
+        messages.addAll(allWorkoutStepMesgs);
+        workout.setNumValidSteps(allWorkoutStepMesgs.size());
         return messages;
     }
 }

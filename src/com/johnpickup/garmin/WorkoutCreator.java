@@ -29,15 +29,15 @@ public class WorkoutCreator {
     public static void main(String[] args) {
         WorkoutCreator app = new WorkoutCreator();
 
-        WorkoutStep testDistance = new SimpleDistanceWorkout(new Distance(2, DistanceUnit.MILE));
+        WorkoutStep testDistance = new SimpleDistanceWorkoutStep(new Distance(2, DistanceUnit.MILE));
         Workout testDistanceWorkout = new Workout(Collections.singletonList(testDistance));
         app.save(testDistanceWorkout, "testDist.fit");
 
-        WorkoutStep testPace = new SimplePaceWorkout(new Distance(2, DistanceUnit.MILE), new PaceTarget(null, 5, 6, PaceUnit.MIN_PER_MILE));
+        WorkoutStep testPace = new SimplePaceWorkoutStep(new Distance(2, DistanceUnit.MILE), new PaceTarget(null, 5, 6, PaceUnit.MIN_PER_MILE));
         Workout testPaceWorkout = new Workout(Collections.singletonList(testPace));
         app.save(testPaceWorkout, "testPace.fit");
 
-        WorkoutStep testInterval = new PaceIntervalWorkout(
+        WorkoutStep testInterval = new PaceIntervalWorkoutStep(
                 4,
                 new Distance(1, DistanceUnit.MILE),
                 new Distance(400, DistanceUnit.METRE),
@@ -47,8 +47,8 @@ public class WorkoutCreator {
         testIntervalWorkout.setName("4x1mi No WU");
         app.save(testIntervalWorkout, "testInterval1.fit");
 
-        WorkoutStep warmcool = new SimpleDistanceWorkout(new Distance(1, DistanceUnit.KILOMETRE));
-        WorkoutStep testInterval2 = new PaceIntervalWorkout(
+        WorkoutStep warmcool = new SimpleDistanceWorkoutStep(new Distance(1, DistanceUnit.KILOMETRE));
+        WorkoutStep testInterval2 = new PaceIntervalWorkoutStep(
                 3,
                 new Distance(1, DistanceUnit.KILOMETRE),
                 new Distance(200, DistanceUnit.METRE),

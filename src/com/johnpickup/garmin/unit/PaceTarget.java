@@ -16,6 +16,10 @@ public class PaceTarget {
     @Getter
     private final Pace minPace;
 
+    public PaceTarget(double min, double max, PaceUnit unit) {
+        this(null, min, max, unit);
+    }
+
     public PaceTarget(String name, double min, double max, PaceUnit unit) {
         this.name = name;
         this.minPace = new Pace(min, unit);

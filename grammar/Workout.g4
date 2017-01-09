@@ -24,9 +24,9 @@ stepList returns [List<Step> steps]
    ;
     
 step returns [Step value]
-   : distance_step  {$value = $distance_step.value;}
-   | pace_step      {$value = $pace_step.value;}
-   | interval_step  {$value = $interval_step.value;}
+   : distance_step      {$value = $distance_step.value;}
+   | pace_step          {$value = $pace_step.value;}
+   | repeating_steps    {$value = $repeating_steps.value;}
    ;
    
 distance_step returns [DistanceStep value]
@@ -39,8 +39,12 @@ pace_step returns [PaceStep value]
    | distance '@' pace_range    {$value = new PaceStep($distance.value, $pace_range.value);}
    ;
    
-interval_step returns [IntervalStep value]
-   : '(' s1=pace_step '+' s2=pace_step ')' '*' cardinal {$value = new IntervalStep($s1.value, $s2.value, $cardinal.value);}
+repeating_steps returns [RepeatingSteps value]
+   : '('
+     s1=step   {$value = new RepeatingSteps($s1.value);}
+     ('+' s2=step )*  {$value.addStep($s2.value);}
+     ')'
+     '*' cardinal {$value.setRepetitions($cardinal.value);}
    ;
     
 distance returns [Distance value]

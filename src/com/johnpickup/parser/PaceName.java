@@ -10,6 +10,6 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class PaceName extends Pace {
+public class PaceName implements Pace {
     private final String name;
 }

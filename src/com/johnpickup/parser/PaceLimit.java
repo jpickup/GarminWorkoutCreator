@@ -11,7 +11,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class PaceLimit extends Pace {
+public class PaceLimit implements Pace {
     @Getter
     private final Time time;
     @Getter
