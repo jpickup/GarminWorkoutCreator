@@ -2,10 +2,10 @@
 WORKOUT GRAMMAR
 Examples:
     1 mi                        - 1 mile with no pace target
-    2 mi STEADY                 - 2 miles as a named pace target
+    2 mi@STEADY                 - 2 miles as a named pace target
     3 km < 5:00/km              - 3km faster than 5 minutes per km
     8 km @ 5:00 - 7:00 / km     - 8km at a pace target defined as a range
-    (1 mi FAST + 400m EASY) * 8 - interval session of 8 repeats of 1 mile fast with 400m recoveries
+    (1 mi@FAST + 400m@EASY) * 8 - interval session of 8 repeats of 1 mile fast with 400m recoveries
 */
 
 grammar Workout;
@@ -83,11 +83,6 @@ name
    : LETTER (LETTER | DIGIT)*
    ;
 
-/*
-TIME
-   : DIGIT + COLON DIGIT DIGIT
-   ;
-*/
 LETTER
    : ('a' .. 'z') | ('A' .. 'Z')
    ;
