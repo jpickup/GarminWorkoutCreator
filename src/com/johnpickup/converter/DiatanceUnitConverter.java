@@ -3,7 +3,7 @@ package com.johnpickup.converter;
 import com.johnpickup.parser.DistanceUnit;
 
 /**
- * Created by john on 09/01/2017.
+ * Convert independent distance units into the Garmin type
  */
 public class DiatanceUnitConverter {
     public static com.johnpickup.garmin.unit.DistanceUnit convert(DistanceUnit unit) {

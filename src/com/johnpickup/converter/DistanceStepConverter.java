@@ -7,7 +7,7 @@ import com.johnpickup.parser.DistanceStep;
 import com.johnpickup.parser.Step;
 
 /**
- * Created by john on 09/01/2017.
+ * Convert independent distance steps into Garmin Workout Distance Steps
  */
 public class DistanceStepConverter implements StepConverter {
     @Override

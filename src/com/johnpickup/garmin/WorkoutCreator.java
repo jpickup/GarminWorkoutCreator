@@ -1,11 +1,17 @@
 package com.johnpickup.garmin;
 
 import com.garmin.fit.*;
+import com.johnpickup.converter.WorkoutConverter;
 import com.johnpickup.garmin.fit.FitGenerator;
 import com.johnpickup.garmin.schedule.ScheduledWorkout;
 import com.johnpickup.garmin.schedule.TrainingSchedule;
 import com.johnpickup.garmin.unit.*;
+import com.johnpickup.garmin.unit.Distance;
+import com.johnpickup.garmin.unit.DistanceUnit;
+import com.johnpickup.garmin.unit.PaceUnit;
 import com.johnpickup.garmin.workout.*;
+import com.johnpickup.garmin.workout.Workout;
+import com.johnpickup.parser.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
@@ -26,8 +32,18 @@ public class WorkoutCreator {
         log.info("Saved {} as {}", fitGenerator, filename);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         WorkoutCreator app = new WorkoutCreator();
+        WorkoutTextParser parser = new WorkoutTextParser();
+        WorkoutConverter converter = new WorkoutConverter();
+
+        com.johnpickup.parser.Workout twoMile = parser.parse("2mi");
+        Workout garminTwoMileWorkout = converter.convert(twoMile);
+        app.save(garminTwoMileWorkout, "parsed_2mi.fit");
+
+        com.johnpickup.parser.Workout interval = parser.parse("1mi + (1mi@06:00-07:00/mi + 400m) * 4 + 1mi");
+        Workout garminInterval = converter.convert(interval);
+        app.save(garminInterval, "parsed_interval.fit");
 
         WorkoutStep testDistance = new SimpleDistanceWorkoutStep(new Distance(2, DistanceUnit.MILE));
         Workout testDistanceWorkout = new Workout(Collections.singletonList(testDistance));

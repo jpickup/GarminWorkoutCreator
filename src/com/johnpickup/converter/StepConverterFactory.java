@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by john on 09/01/2017.
+ * Factory that given a type of workout step with return an instance of the appropriate converter class
  */
 public class StepConverterFactory {
     private static StepConverterFactory instance;
@@ -28,7 +28,7 @@ public class StepConverterFactory {
         return instance;
     }
 
-    public void register(StepConverter converter,Class stepClass) {
+    private void register(StepConverter converter,Class stepClass) {
         converters.put(stepClass, converter);
     }
 

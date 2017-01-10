@@ -1,6 +1,7 @@
 package com.johnpickup.parser;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
@@ -11,5 +12,6 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class PaceName implements Pace {
+    @Getter
     private final String name;
 }

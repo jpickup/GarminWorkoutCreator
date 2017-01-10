@@ -6,7 +6,7 @@ import com.johnpickup.parser.Pace;
 import com.johnpickup.parser.PaceRange;
 
 /**
- * Created by john on 09/01/2017.
+ * Convert an independent pace range into a Garmin pace target
  */
 public class PaceRangeConverter implements PaceConverter {
     @Override

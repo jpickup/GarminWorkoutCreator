@@ -3,7 +3,7 @@ package com.johnpickup.converter;
 import com.johnpickup.parser.PaceUnit;
 
 /**
- * Created by john on 09/01/2017.
+ * Convert independent pace units into Garmin pace units
  */
 public class PaceUnitConverter {
     public static com.johnpickup.garmin.unit.PaceUnit convert(PaceUnit unit) {

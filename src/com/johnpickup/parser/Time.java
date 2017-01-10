@@ -9,7 +9,6 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @RequiredArgsConstructor
-@ToString
 public class Time {
     private final Integer minutes;
     private final Integer seconds;
@@ -29,5 +28,10 @@ public class Time {
             return minutes + (seconds * 1.0)/60;
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d:%02d", minutes, seconds);
     }
 }

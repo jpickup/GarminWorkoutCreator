@@ -1,5 +1,7 @@
 package com.johnpickup.converter;
 
+import com.johnpickup.parser.MaximumPace;
+import com.johnpickup.parser.MinimumPace;
 import com.johnpickup.parser.Pace;
 import com.johnpickup.parser.PaceRange;
 
@@ -7,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by john on 09/01/2017.
+ * Factory that returns the correct converter insatnce based on the type of pace object passed in
  */
 public class PaceConverterFactory {
     private static PaceConverterFactory instance;
@@ -15,6 +17,8 @@ public class PaceConverterFactory {
 
     private PaceConverterFactory() {
         register(new PaceRangeConverter(), PaceRange.class);
+        register(new MaximumPaceConverter(), MaximumPace.class);
+        register(new MinimumPaceConverter(), MinimumPace.class);
     }
 
     private void register(PaceConverter converter, Class aClass) {

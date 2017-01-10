@@ -19,4 +19,15 @@ public enum PaceUnit {
                 return null;
         }
     }
+
+    @Override
+    public String toString() {
+        switch (this) {
+            case KILOMETRE_PER_HOUR: return "kph";
+            case MILE_PER_HOUR: return "mph";
+            case MIN_PER_KILOMETRE: return "/km";
+            case MIN_PER_MILE: return "/mi";
+            default: return super.toString();
+        }
+    }
 }

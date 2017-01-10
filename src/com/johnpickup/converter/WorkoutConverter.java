@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by john on 09/01/2017.
+ * Convert an entire independent workout into a Garmin workout with matching steps
  */
 public class WorkoutConverter {
     public com.johnpickup.garmin.workout.Workout convert(com.johnpickup.parser.Workout workout) {
