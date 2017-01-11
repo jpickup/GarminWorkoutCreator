@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Factory that returns the correct converter insatnce based on the type of pace object passed in
+ * Factory that returns the correct converter instance based on the type of pace object passed in
  */
 public class PaceConverterFactory {
     private static PaceConverterFactory instance;
@@ -21,7 +21,7 @@ public class PaceConverterFactory {
         register(new MinimumPaceConverter(), MinimumPace.class);
     }
 
-    private void register(PaceConverter converter, Class aClass) {
+    public void register(PaceConverter converter, Class aClass) {
         converters.put(aClass, converter);
     }
 
