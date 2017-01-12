@@ -35,6 +35,10 @@ public class TrainingSchedule implements FitGenerator {
         return messages;
     }
 
+    public void clear() {
+        workouts.clear();
+    }
+
     @Override
     public List<Mesg> generate() {
         List<Mesg> messages = createMessageHeader();

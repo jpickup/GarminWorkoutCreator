@@ -1,18 +1,14 @@
 package com.johnpickup.garmin;
 
-import com.garmin.fit.*;
 import com.johnpickup.converter.WorkoutConverter;
-import com.johnpickup.garmin.fit.FitGenerator;
 import com.johnpickup.garmin.schedule.ScheduledWorkout;
 import com.johnpickup.garmin.schedule.TrainingSchedule;
-import com.johnpickup.garmin.unit.*;
 import com.johnpickup.garmin.unit.Distance;
 import com.johnpickup.garmin.unit.DistanceUnit;
+import com.johnpickup.garmin.unit.PaceTarget;
 import com.johnpickup.garmin.unit.PaceUnit;
 import com.johnpickup.garmin.workout.*;
-import com.johnpickup.garmin.workout.Workout;
-import com.johnpickup.parser.*;
-import lombok.extern.slf4j.Slf4j;
+import com.johnpickup.parser.WorkoutTextParser;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,38 +16,29 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by john on 19/11/2016.
+ * Created by john on 12/01/2017.
  */
-@Slf4j
-public class WorkoutCreator {
-
-    public void save(FitGenerator fitGenerator, String filename) {
-        FileEncoder encode = new FileEncoder( new java.io.File(filename), Fit.ProtocolVersion.V1_0);
-        encode.write(fitGenerator.generate());
-        encode.close();
-        log.info("Saved {} as {}", fitGenerator, filename);
-    }
-
+public class WorkoutSaverTest {
     public static void main(String[] args) throws Exception {
-        WorkoutCreator app = new WorkoutCreator();
+        WorkoutSaver saver = new WorkoutSaver();
         WorkoutTextParser parser = new WorkoutTextParser();
         WorkoutConverter converter = new WorkoutConverter();
 
         com.johnpickup.parser.Workout twoMile = parser.parse("2mi");
         Workout garminTwoMileWorkout = converter.convert(twoMile);
-        app.save(garminTwoMileWorkout, "parsed_2mi.fit");
+        saver.save(garminTwoMileWorkout, "parsed_2mi.fit");
 
         com.johnpickup.parser.Workout interval = parser.parse("1mi + (1mi@06:00-07:00/mi + 400m) * 4 + 1mi");
         Workout garminInterval = converter.convert(interval);
-        app.save(garminInterval, "parsed_interval.fit");
+        saver.save(garminInterval, "parsed_interval.fit");
 
         WorkoutStep testDistance = new SimpleDistanceWorkoutStep(new Distance(2, DistanceUnit.MILE));
         Workout testDistanceWorkout = new Workout(Collections.singletonList(testDistance));
-        app.save(testDistanceWorkout, "testDist.fit");
+        saver.save(testDistanceWorkout, "testDist.fit");
 
         WorkoutStep testPace = new SimplePaceWorkoutStep(new Distance(2, DistanceUnit.MILE), new PaceTarget(null, 5, 6, PaceUnit.MIN_PER_MILE));
         Workout testPaceWorkout = new Workout(Collections.singletonList(testPace));
-        app.save(testPaceWorkout, "testPace.fit");
+        saver.save(testPaceWorkout, "testPace.fit");
 
         WorkoutStep testInterval = new PaceIntervalWorkoutStep(
                 4,
@@ -61,7 +48,7 @@ public class WorkoutCreator {
                 new PaceTarget(null, 9, 12, PaceUnit.MIN_PER_MILE));
         Workout testIntervalWorkout = new Workout(Collections.singletonList(testInterval));
         testIntervalWorkout.setName("4x1mi No WU");
-        app.save(testIntervalWorkout, "testInterval1.fit");
+        saver.save(testIntervalWorkout, "testInterval1.fit");
 
         WorkoutStep warmcool = new SimpleDistanceWorkoutStep(new Distance(1, DistanceUnit.KILOMETRE));
         WorkoutStep testInterval2 = new PaceIntervalWorkoutStep(
@@ -74,13 +61,12 @@ public class WorkoutCreator {
 
         Workout testIntervalWorkout2 = new Workout(Arrays.asList(interval2Steps));
         testIntervalWorkout2.setName("3x1km WUCD");
-        app.save(testIntervalWorkout2, "testInterval2.fit");
+        saver.save(testIntervalWorkout2, "testInterval2.fit");
 
         TrainingSchedule trainingSchedule = new TrainingSchedule();
         trainingSchedule.addScheduledWorkout(new ScheduledWorkout(testDistanceWorkout, new Date()));
         trainingSchedule.addScheduledWorkout(new ScheduledWorkout(testPaceWorkout, new Date(new Date().getTime() + TimeUnit.DAYS.toMillis(1))));
         //trainingSchedule.addScheduledWorkout(new ScheduledWorkout(testInterval, new Date(2017,1,3)));
-        app.save(trainingSchedule, "testSchedule.fit");
-
+        saver.save(trainingSchedule, "testSchedule.fit");
     }
 }

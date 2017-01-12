@@ -1,57 +1,52 @@
 package com.johnpickup;
 
-import com.johnpickup.converter.PaceConverter;
-import com.johnpickup.converter.PaceConverterFactory;
-import com.johnpickup.converter.PaceNameConverter;
-import com.johnpickup.converter.WorkoutConverter;
+import com.johnpickup.converter.*;
 import com.johnpickup.excel.ExcelWorkoutScheduleReader;
-import com.johnpickup.garmin.WorkoutCreator;
-import com.johnpickup.garmin.unit.PaceTarget;
-import com.johnpickup.parser.Pace;
-import com.johnpickup.parser.PaceName;
-import com.johnpickup.parser.Workout;
+import com.johnpickup.garmin.WorkoutSaver;
 import com.johnpickup.parser.WorkoutSchedule;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
 
 /**
- * Created by john on 11/01/2017.
+ * Simple class with command-line interface that takes an Excel definition of a workout schedule and proceduces a set
+ * of FIT files for loading onto the Garmin device
  */
+@Slf4j
 public class GarminScheduleGenerator {
-    private Map<String, PaceTarget> namedPaces = new HashMap<>();
 
     public static void main(String[] args) {
         try {
             GarminScheduleGenerator instance = new GarminScheduleGenerator();
-            instance.init();
             instance.generate(args[0]);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Failed to generate workout schedule", e);
         }
-    }
-
-    private void init() {
-        PaceNameConverter namedPaceConverter = new PaceNameConverter(namedPaces);
-        PaceConverterFactory.getInstance().register(namedPaceConverter, PaceName.class);
     }
 
     private void generate(String inputFilename) throws IOException {
+        log.info("Converting {}", inputFilename);
         ExcelWorkoutScheduleReader reader = new ExcelWorkoutScheduleReader();
+        WorkoutScheduleConverter converter = new WorkoutScheduleConverter();
+        WorkoutSaver workoutSaver = new WorkoutSaver();
+        log.info("Reading workout schedule");
         WorkoutSchedule workoutSchedule = reader.read(inputFilename);
-        WorkoutConverter workoutConverter = new WorkoutConverter();
-        WorkoutCreator workoutCreator = new WorkoutCreator();
-        for (Map.Entry<String, Pace> namedPace : workoutSchedule.getPaces().entrySet()) {
-            Pace pace = namedPace.getValue();
-            namedPaces.put(namedPace.getKey(), PaceConverterFactory.getInstance().getPaceConverter(pace).convert(pace));
+
+        log.info("Converting workout schedule");
+        converter.convert(workoutSchedule);
+
+        log.info("Saving workouts");
+        for (com.johnpickup.garmin.workout.Workout garminWorkout : converter.getGarminWorkouts()) {
+            String workoutFilename = generateWorkoutFilename(garminWorkout);
+            workoutSaver.save(garminWorkout, workoutFilename);
+            log.info("Saved workout {} as {}", garminWorkout.getName(), workoutFilename);
         }
 
-        for (Workout workout : workoutSchedule.getWorkouts().values()) {
-            com.johnpickup.garmin.workout.Workout garminWorkout = workoutConverter.convert(workout);
-            workoutCreator.save(garminWorkout, generateWorkoutFilename(garminWorkout));
-        }
-
+        log.info("Saving schedule");
+        String scheduleFilename = "schedule.fit";
+        workoutSaver.save(converter.getTrainingSchedule(), scheduleFilename);
+        log.info("Saved workout schedule as {}", scheduleFilename);
     }
 
     private String generateWorkoutFilename(com.johnpickup.garmin.workout.Workout garminWorkout) {

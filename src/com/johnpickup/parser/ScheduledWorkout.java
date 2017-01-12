@@ -1,6 +1,7 @@
 package com.johnpickup.parser;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
@@ -13,6 +14,8 @@ import java.util.Date;
 @EqualsAndHashCode
 @ToString
 public class ScheduledWorkout {
+    @Getter
     private final Date date;
+    @Getter
     private final Workout workout;
 }
