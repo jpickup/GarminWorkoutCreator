@@ -6,11 +6,8 @@ import java.util.ArrayList;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class WorkoutParser extends Parser {
@@ -332,7 +329,7 @@ public class WorkoutParser extends Parser {
 	}
 
 	public static class Pace_stepContext extends ParserRuleContext {
-		public PaceStep value;
+		public DistancePaceStep value;
 		public DistanceContext distance;
 		public PaceContext pace;
 		public Pace_rangeContext pace_range;
@@ -380,7 +377,7 @@ public class WorkoutParser extends Parser {
 				match(T__1);
 				setState(58);
 				((Pace_stepContext)_localctx).pace = pace();
-				((Pace_stepContext)_localctx).value =  new PaceStep(((Pace_stepContext)_localctx).distance.value, new MaximumPace(((Pace_stepContext)_localctx).pace.value));
+				((Pace_stepContext)_localctx).value =  new DistancePaceStep(((Pace_stepContext)_localctx).distance.value, new MaximumPace(((Pace_stepContext)_localctx).pace.value));
 				}
 				break;
 			case 2:
@@ -392,7 +389,7 @@ public class WorkoutParser extends Parser {
 				match(T__2);
 				setState(63);
 				((Pace_stepContext)_localctx).pace = pace();
-				((Pace_stepContext)_localctx).value =  new PaceStep(((Pace_stepContext)_localctx).distance.value, new MinimumPace(((Pace_stepContext)_localctx).pace.value));
+				((Pace_stepContext)_localctx).value =  new DistancePaceStep(((Pace_stepContext)_localctx).distance.value, new MinimumPace(((Pace_stepContext)_localctx).pace.value));
 				}
 				break;
 			case 3:
@@ -404,7 +401,7 @@ public class WorkoutParser extends Parser {
 				match(T__3);
 				setState(68);
 				((Pace_stepContext)_localctx).pace_range = pace_range();
-				((Pace_stepContext)_localctx).value =  new PaceStep(((Pace_stepContext)_localctx).distance.value, ((Pace_stepContext)_localctx).pace_range.value);
+				((Pace_stepContext)_localctx).value =  new DistancePaceStep(((Pace_stepContext)_localctx).distance.value, ((Pace_stepContext)_localctx).pace_range.value);
 				}
 				break;
 			}

@@ -11,7 +11,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public class PaceStep extends Step {
+public class DistancePaceStep extends Step {
     @Getter
     private final Distance distance;
     @Getter

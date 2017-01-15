@@ -1,7 +1,7 @@
 package com.johnpickup.converter;
 
 import com.johnpickup.parser.DistanceStep;
-import com.johnpickup.parser.PaceStep;
+import com.johnpickup.parser.DistancePaceStep;
 import com.johnpickup.parser.RepeatingSteps;
 import com.johnpickup.parser.Step;
 
@@ -17,7 +17,7 @@ public class StepConverterFactory {
 
     private StepConverterFactory() {
         register(new DistanceStepConverter(), DistanceStep.class);
-        register(new PaceStepConverter(), PaceStep.class);
+        register(new DistancePaceStepConverter(), DistancePaceStep.class);
         register(new RepeatingStepsConverter(), RepeatingSteps.class);
     }
 

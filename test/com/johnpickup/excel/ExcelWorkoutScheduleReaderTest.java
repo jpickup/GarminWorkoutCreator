@@ -32,18 +32,18 @@ public class ExcelWorkoutScheduleReaderTest {
         expected.getPaces().put("Easy", new PaceRange(new Time(9,0), new Time(10,30), PaceUnit.MIN_PER_MILE));
         expected.getPaces().put("Slow", new PaceRange(new Time(10,0), new Time(15,0), PaceUnit.MIN_PER_MILE));
 
-        Workout fiveMileSlow = new Workout(Collections.singletonList(new PaceStep(new Distance(5, DistanceUnit.MILE), new PaceName("Slow"))));
+        Workout fiveMileSlow = new Workout(Collections.singletonList(new DistancePaceStep(new Distance(5, DistanceUnit.MILE), new PaceName("Slow"))));
         expected.getWorkouts().put("5mi Slow", fiveMileSlow);
         List<Step> intervalSteps = new ArrayList<>();
         intervalSteps.add(new DistanceStep(new Distance(1, DistanceUnit.MILE)));
-        RepeatingSteps repeatingSteps = new RepeatingSteps(new PaceStep(new Distance(1, DistanceUnit.MILE), new PaceName("Fast")));
-        repeatingSteps.addStep(new PaceStep(new Distance(400, DistanceUnit.METRE), new PaceName("Easy")));
+        RepeatingSteps repeatingSteps = new RepeatingSteps(new DistancePaceStep(new Distance(1, DistanceUnit.MILE), new PaceName("Fast")));
+        repeatingSteps.addStep(new DistancePaceStep(new Distance(400, DistanceUnit.METRE), new PaceName("Easy")));
         repeatingSteps.setRepetitions(4);
         intervalSteps.add(repeatingSteps);
         intervalSteps.add(new DistanceStep(new Distance(1, DistanceUnit.MILE)));
         Workout intervalWorkout = new Workout(intervalSteps);
         expected.getWorkouts().put("4x1mi Interval", intervalWorkout);
-        Workout sixMileSteady = new Workout(Collections.singletonList(new PaceStep(new Distance(6, DistanceUnit.MILE), new PaceName("Steady"))));
+        Workout sixMileSteady = new Workout(Collections.singletonList(new DistancePaceStep(new Distance(6, DistanceUnit.MILE), new PaceName("Steady"))));
         expected.getWorkouts().put("6mi Steady", sixMileSteady);
 
         expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,1,10), fiveMileSlow));
@@ -51,10 +51,10 @@ public class ExcelWorkoutScheduleReaderTest {
         expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,1,30), sixMileSteady));
         List<Step> onePlusFourSteps = new ArrayList<>();
         onePlusFourSteps.add(new DistanceStep(new Distance(1, DistanceUnit.MILE)));
-        onePlusFourSteps.add(new PaceStep(new Distance(4, DistanceUnit.MILE), new PaceName("Brisk")));
+        onePlusFourSteps.add(new DistancePaceStep(new Distance(4, DistanceUnit.MILE), new PaceName("Brisk")));
         Workout onePlusFourMileBrisk = new Workout(onePlusFourSteps);
         expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,2,1), onePlusFourMileBrisk));
-        Workout threeMileExplicit = new Workout(Collections.singletonList(new PaceStep(new Distance(3, DistanceUnit.MILE), new PaceRange(new Time(8,0), new Time(10,0), PaceUnit.MIN_PER_MILE))));
+        Workout threeMileExplicit = new Workout(Collections.singletonList(new DistancePaceStep(new Distance(3, DistanceUnit.MILE), new PaceRange(new Time(8,0), new Time(10,0), PaceUnit.MIN_PER_MILE))));
         expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,2,11), threeMileExplicit));
 
         expected.getWorkouts().put("1mi+4mi@Brisk",onePlusFourMileBrisk);
