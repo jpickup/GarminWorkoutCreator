@@ -46,6 +46,11 @@ public class ExcelWorkoutScheduleReaderTest {
         Workout sixMileSteady = new Workout(Collections.singletonList(new DistancePaceStep(new Distance(6, DistanceUnit.MILE), new PaceName("Steady"))));
         expected.getWorkouts().put("6mi Steady", sixMileSteady);
 
+        Workout halfHour = new Workout(Collections.singletonList(new TimeStep(new Time(30,0))));
+        Workout fiveMinFast = new Workout(Collections.singletonList(new TimePaceStep(new Time(5,0), new PaceName("Fast"))));
+        expected.getWorkouts().put("30min",halfHour);
+        expected.getWorkouts().put("5min Fast", fiveMinFast);
+
         expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,1,10), fiveMileSlow));
         expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,1,20), intervalWorkout));
         expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,1,30), sixMileSteady));
@@ -56,6 +61,7 @@ public class ExcelWorkoutScheduleReaderTest {
         expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,2,1), onePlusFourMileBrisk));
         Workout threeMileExplicit = new Workout(Collections.singletonList(new DistancePaceStep(new Distance(3, DistanceUnit.MILE), new PaceRange(new Time(8,0), new Time(10,0), PaceUnit.MIN_PER_MILE))));
         expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,2,11), threeMileExplicit));
+
 
         expected.getWorkouts().put("1mi+4mi@Brisk",onePlusFourMileBrisk);
         expected.getWorkouts().put("3mi@8:00-10:00/mi",threeMileExplicit);

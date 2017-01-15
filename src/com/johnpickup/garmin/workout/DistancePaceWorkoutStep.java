@@ -14,7 +14,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class SimplePaceWorkoutStep extends WorkoutStep {
+public class DistancePaceWorkoutStep extends WorkoutStep {
     private final Distance distance;
     private final PaceTarget paceTarget;
 

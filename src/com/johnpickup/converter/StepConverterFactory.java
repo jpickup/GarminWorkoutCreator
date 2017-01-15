@@ -1,9 +1,6 @@
 package com.johnpickup.converter;
 
-import com.johnpickup.parser.DistanceStep;
-import com.johnpickup.parser.DistancePaceStep;
-import com.johnpickup.parser.RepeatingSteps;
-import com.johnpickup.parser.Step;
+import com.johnpickup.parser.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +15,8 @@ public class StepConverterFactory {
     private StepConverterFactory() {
         register(new DistanceStepConverter(), DistanceStep.class);
         register(new DistancePaceStepConverter(), DistancePaceStep.class);
+        register(new TimeStepConverter(), TimeStep.class);
+        register(new TimePaceStepConverter(), TimePaceStep.class);
         register(new RepeatingStepsConverter(), RepeatingSteps.class);
     }
 

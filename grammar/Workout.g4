@@ -15,36 +15,48 @@ import java.util.ArrayList;
 }
 
 workout returns [Workout w]
-   : stepList {$w = new Workout($stepList.steps);}
+   : stepList           {$w = new Workout($stepList.steps);}
    ;
 
 stepList returns [List<Step> steps]
    : s0=step {$steps = new ArrayList<>(); $steps.add($s0.value);}
-     ('+' s1=step   {$steps.add($s1.value);})*
+     ('+' s1=step       {$steps.add($s1.value);})*
    ;
     
 step returns [Step value]
    : distance_step      {$value = $distance_step.value;}
-   | pace_step          {$value = $pace_step.value;}
+   | distance_pace_step {$value = $distance_pace_step.value;}
+   | time_step          {$value = $time_step.value;}
+   | time_pace_step     {$value = $time_pace_step.value;}
    | repeating_steps    {$value = $repeating_steps.value;}
    ;
    
 distance_step returns [DistanceStep value]
-   : distance       {$value =  new DistanceStep($distance.value);}
+   : distance           {$value = new DistanceStep($distance.value);}
    ;
 
-pace_step returns [PaceStep value]
-   : distance '<' pace          {$value = new PaceStep($distance.value, new MaximumPace($pace.value));}
-   | distance '>' pace          {$value = new PaceStep($distance.value, new MinimumPace($pace.value));}
-   | distance '@' pace_range    {$value = new PaceStep($distance.value, $pace_range.value);}
+distance_pace_step returns [DistancePaceStep value]
+   : distance '<' pace          {$value = new DistancePaceStep($distance.value, new MaximumPace($pace.value));}
+   | distance '>' pace          {$value = new DistancePaceStep($distance.value, new MinimumPace($pace.value));}
+   | distance '@' pace_range    {$value = new DistancePaceStep($distance.value, $pace_range.value);}
    ;
-   
+
+time_step returns [TimeStep value]
+   : time               {$value = new TimeStep($time.value);}
+   ;
+
+time_pace_step returns [TimePaceStep value]
+   : time '<' pace          {$value = new TimePaceStep($time.value, new MaximumPace($pace.value));}
+   | time '>' pace          {$value = new TimePaceStep($time.value, new MinimumPace($pace.value));}
+   | time '@' pace_range    {$value = new TimePaceStep($time.value, $pace_range.value);}
+   ;
+
 repeating_steps returns [RepeatingSteps value]
    : '('
-     s1=step   {$value = new RepeatingSteps($s1.value);}
-     ('+' s2=step )*  {$value.addStep($s2.value);}
+     s1=step            {$value = new RepeatingSteps($s1.value);}
+     ('+' s2=step )*    {$value.addStep($s2.value);}
      ')'
-     '*' cardinal {$value.setRepetitions($cardinal.value);}
+     '*' cardinal       {$value.setRepetitions($cardinal.value);}
    ;
     
 distance returns [Distance value]
@@ -52,9 +64,9 @@ distance returns [Distance value]
    ;
    
 distance_unit returns [DistanceUnit value]
-   : 'm'        {$value = DistanceUnit.METRE;}
-   | 'mi'       {$value =  DistanceUnit.MILE;}
-   | 'km'       {$value =  DistanceUnit.KILOMETRE;}
+   : 'm'                {$value = DistanceUnit.METRE;}
+   | 'mi'               {$value =  DistanceUnit.MILE;}
+   | 'km'               {$value =  DistanceUnit.KILOMETRE;}
    ;
 
 pace returns [PaceLimit value]
@@ -76,7 +88,7 @@ number returns [double value]
    ;
 
 cardinal returns [int value]
-   : DIGIT +    {$value = Integer.parseInt($text);}
+   : DIGIT +            {$value = Integer.parseInt($text);}
    ;
 
 name

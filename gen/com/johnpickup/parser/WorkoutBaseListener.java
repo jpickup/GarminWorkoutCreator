@@ -67,13 +67,37 @@ public class WorkoutBaseListener implements WorkoutListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPace_step(WorkoutParser.Pace_stepContext ctx) { }
+	@Override public void enterDistance_pace_step(WorkoutParser.Distance_pace_stepContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPace_step(WorkoutParser.Pace_stepContext ctx) { }
+	@Override public void exitDistance_pace_step(WorkoutParser.Distance_pace_stepContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTime_step(WorkoutParser.Time_stepContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTime_step(WorkoutParser.Time_stepContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTime_pace_step(WorkoutParser.Time_pace_stepContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTime_pace_step(WorkoutParser.Time_pace_stepContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

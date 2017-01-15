@@ -28,12 +28,25 @@ public class WorkoutTextParserTest {
     }
 
     @Test
-    public void parseSimplePace() throws Exception {
+    public void parseSimpleDistancePace() throws Exception {
         Workout actual = classUnderTest.parse("1mi@08:00-09:30/mi");
         Workout expected = new Workout(Collections.singletonList(new DistancePaceStep(new Distance(1, DistanceUnit.MILE), new PaceRange(new Time(8,0), new Time(9, 30), PaceUnit.MIN_PER_MILE))));
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void parseSimpleTime() throws Exception {
+        Workout actual = classUnderTest.parse("10:00");
+        Workout expected = new Workout(Collections.singletonList(new TimeStep(new Time(10,0))));
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void parseSimpleTimePace() throws Exception {
+        Workout actual = classUnderTest.parse("10:00@08:00-09:30/mi");
+        Workout expected = new Workout(Collections.singletonList(new TimePaceStep(new Time(10,0), new PaceRange(new Time(8,0), new Time(9, 30), PaceUnit.MIN_PER_MILE))));
+        assertEquals(expected, actual);
+    }
     @Test
     public void parseSimpleNamedPace() throws Exception {
         Workout actual = classUnderTest.parse("1mi@FAST");

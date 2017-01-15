@@ -51,15 +51,35 @@ public interface WorkoutListener extends ParseTreeListener {
 	 */
 	void exitDistance_step(WorkoutParser.Distance_stepContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link WorkoutParser#pace_step}.
+	 * Enter a parse tree produced by {@link WorkoutParser#distance_pace_step}.
 	 * @param ctx the parse tree
 	 */
-	void enterPace_step(WorkoutParser.Pace_stepContext ctx);
+	void enterDistance_pace_step(WorkoutParser.Distance_pace_stepContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link WorkoutParser#pace_step}.
+	 * Exit a parse tree produced by {@link WorkoutParser#distance_pace_step}.
 	 * @param ctx the parse tree
 	 */
-	void exitPace_step(WorkoutParser.Pace_stepContext ctx);
+	void exitDistance_pace_step(WorkoutParser.Distance_pace_stepContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link WorkoutParser#time_step}.
+	 * @param ctx the parse tree
+	 */
+	void enterTime_step(WorkoutParser.Time_stepContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link WorkoutParser#time_step}.
+	 * @param ctx the parse tree
+	 */
+	void exitTime_step(WorkoutParser.Time_stepContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link WorkoutParser#time_pace_step}.
+	 * @param ctx the parse tree
+	 */
+	void enterTime_pace_step(WorkoutParser.Time_pace_stepContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link WorkoutParser#time_pace_step}.
+	 * @param ctx the parse tree
+	 */
+	void exitTime_pace_step(WorkoutParser.Time_pace_stepContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link WorkoutParser#repeating_steps}.
 	 * @param ctx the parse tree

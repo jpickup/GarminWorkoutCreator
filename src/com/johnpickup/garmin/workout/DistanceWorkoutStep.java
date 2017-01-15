@@ -14,7 +14,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class SimpleDistanceWorkoutStep extends WorkoutStep {
+public class DistanceWorkoutStep extends WorkoutStep {
     private final Distance distance;
 
     @Override

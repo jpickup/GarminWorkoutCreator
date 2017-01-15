@@ -32,11 +32,11 @@ public class WorkoutSaverTest {
         Workout garminInterval = converter.convert(interval);
         saver.save(garminInterval, "parsed_interval.fit");
 
-        WorkoutStep testDistance = new SimpleDistanceWorkoutStep(new Distance(2, DistanceUnit.MILE));
+        WorkoutStep testDistance = new DistanceWorkoutStep(new Distance(2, DistanceUnit.MILE));
         Workout testDistanceWorkout = new Workout(Collections.singletonList(testDistance));
         saver.save(testDistanceWorkout, "testDist.fit");
 
-        WorkoutStep testPace = new SimplePaceWorkoutStep(new Distance(2, DistanceUnit.MILE), new PaceTarget(null, 5, 6, PaceUnit.MIN_PER_MILE));
+        WorkoutStep testPace = new DistancePaceWorkoutStep(new Distance(2, DistanceUnit.MILE), new PaceTarget(null, 5, 6, PaceUnit.MIN_PER_MILE));
         Workout testPaceWorkout = new Workout(Collections.singletonList(testPace));
         saver.save(testPaceWorkout, "testPace.fit");
 
@@ -50,7 +50,7 @@ public class WorkoutSaverTest {
         testIntervalWorkout.setName("4x1mi No WU");
         saver.save(testIntervalWorkout, "testInterval1.fit");
 
-        WorkoutStep warmcool = new SimpleDistanceWorkoutStep(new Distance(1, DistanceUnit.KILOMETRE));
+        WorkoutStep warmcool = new DistanceWorkoutStep(new Distance(1, DistanceUnit.KILOMETRE));
         WorkoutStep testInterval2 = new PaceIntervalWorkoutStep(
                 3,
                 new Distance(1, DistanceUnit.KILOMETRE),

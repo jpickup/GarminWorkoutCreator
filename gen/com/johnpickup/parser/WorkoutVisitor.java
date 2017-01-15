@@ -38,11 +38,23 @@ public interface WorkoutVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDistance_step(WorkoutParser.Distance_stepContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link WorkoutParser#pace_step}.
+	 * Visit a parse tree produced by {@link WorkoutParser#distance_pace_step}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPace_step(WorkoutParser.Pace_stepContext ctx);
+	T visitDistance_pace_step(WorkoutParser.Distance_pace_stepContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link WorkoutParser#time_step}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTime_step(WorkoutParser.Time_stepContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link WorkoutParser#time_pace_step}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTime_pace_step(WorkoutParser.Time_pace_stepContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link WorkoutParser#repeating_steps}.
 	 * @param ctx the parse tree
