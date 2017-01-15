@@ -6,7 +6,6 @@ import com.johnpickup.garmin.unit.PaceTarget;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

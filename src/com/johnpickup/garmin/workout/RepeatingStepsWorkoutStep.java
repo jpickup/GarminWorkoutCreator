@@ -34,14 +34,13 @@ public class RepeatingStepsWorkoutStep extends WorkoutStep {
         List<WorkoutStepMesg> result = new ArrayList<>();
 
         int stepCount=0;
-        int startIntervalIndex = 0;
 
         for (WorkoutStep step : steps) {
             List<WorkoutStepMesg> workoutMesgs = step.generateWorkoutSteps();
-            startIntervalIndex = workoutMesgs.get(0).getMessageIndex();
             result.addAll(workoutMesgs);
             stepCount += workoutMesgs.size();
         }
+        int startIntervalIndex = result.get(0).getMessageIndex();
 
         WorkoutStepMesg repeatStep = new WorkoutStepMesg();
         repeatStep.setIntensity(Intensity.INVALID);

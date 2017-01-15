@@ -39,6 +39,7 @@ public class GarminScheduleGenerator {
         log.info("Saving workouts");
         for (com.johnpickup.garmin.workout.Workout garminWorkout : converter.getGarminWorkouts()) {
             String workoutFilename = generateWorkoutFilename(garminWorkout);
+            log.debug("Saving workout {} as {}", garminWorkout.getName(), workoutFilename);
             workoutSaver.save(garminWorkout, workoutFilename);
             log.info("Saved workout {} as {}", garminWorkout.getName(), workoutFilename);
         }
@@ -53,6 +54,7 @@ public class GarminScheduleGenerator {
         String name = garminWorkout.getName();
         return name.trim().replaceAll(" ","").replaceAll("/","")
                 .replaceAll("\\(","").replaceAll("\\)","")
-                .replaceAll(":","").replaceAll("\\+","") + ".fit";
+                .replaceAll(":","").replaceAll("\\+","-")
+                .replaceAll("\\*","x")+ ".fit";
     }
 }
