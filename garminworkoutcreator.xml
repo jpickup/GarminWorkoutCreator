@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="garminworkoutcreator" default="all">
+  
+  
+  <property file="garminworkoutcreator.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.ear"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.7" value="${jdk.home.1.7}/bin"/>
+  <path id="jdk.classpath.1.7">
+    <fileset dir="${jdk.home.1.7}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/htmlconverter.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxrt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="lib/ant-javafx.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javafx-doclet.jar"/>
+      <include name="lib/javafx-mx.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="lib/tools.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.7}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.7}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.7"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.antlr-4.5.3-complete.classpath">
+    <pathelement location="${basedir}/lib/antlr-4.5.3-complete.jar"/>
+  </path>
+  
+  <path id="library.antlr-4.6-complete.classpath">
+    <pathelement location="${basedir}/lib/antlr-4.6-complete.jar"/>
+  </path>
+  
+  <path id="library.fit.classpath">
+    <pathelement location="${basedir}/lib/fit.jar"/>
+  </path>
+  
+  <path id="library.hamcrest-core-1.3.classpath">
+    <pathelement location="${basedir}/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${basedir}/lib/junit-4.12.jar"/>
+  </path>
+  
+  <path id="library.log4j-1.2.13.classpath">
+    <pathelement location="${basedir}/lib/log4j-1.2.13.jar"/>
+  </path>
+  
+  <path id="library.lombok.classpath">
+    <pathelement location="${basedir}/lib/lombok.jar"/>
+  </path>
+  
+  <path id="library.poi-3.11-beta2-20140822.classpath">
+    <pathelement location="${basedir}/lib/poi-3.11-beta2-20140822.jar"/>
+    <pathelement location="${basedir}/lib/poi-ooxml-3.11-beta2-20140822.jar"/>
+    <pathelement location="${basedir}/lib/poi-ooxml-schemas-3.11-beta2-20140822.jar"/>
+  </path>
+  
+  <path id="library.slf4j-api-1.7.22.classpath">
+    <pathelement location="${basedir}/lib/slf4j-api-1.7.22.jar"/>
+    <pathelement location="${basedir}/lib/slf4j-log4j12-1.7.22.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module GarminWorkoutCreator -->
+  
+  <dirname property="module.garminworkoutcreator.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.garminworkoutcreator" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.garminworkoutcreator" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.garminworkoutcreator" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.garminworkoutcreator" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  
+  <property name="garminworkoutcreator.output.dir" value="${module.garminworkoutcreator.basedir}/out/production/GarminWorkoutCreator"/>
+  <property name="garminworkoutcreator.testoutput.dir" value="${module.garminworkoutcreator.basedir}/out/test/GarminWorkoutCreator"/>
+  
+  <path id="garminworkoutcreator.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="garminworkoutcreator.module.production.classpath">
+    <path refid="${module.jdk.classpath.garminworkoutcreator}"/>
+    <path refid="library.fit.classpath"/>
+    <path refid="library.log4j-1.2.13.classpath"/>
+    <path refid="library.lombok.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.slf4j-api-1.7.22.classpath"/>
+    <path refid="library.antlr-4.5.3-complete.classpath"/>
+    <path refid="library.antlr-4.6-complete.classpath"/>
+    <path refid="library.poi-3.11-beta2-20140822.classpath"/>
+  </path>
+  
+  <path id="garminworkoutcreator.runtime.production.module.classpath">
+    <pathelement location="${garminworkoutcreator.output.dir}"/>
+    <path refid="library.fit.classpath"/>
+    <path refid="library.log4j-1.2.13.classpath"/>
+    <path refid="library.lombok.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.slf4j-api-1.7.22.classpath"/>
+    <path refid="library.antlr-4.5.3-complete.classpath"/>
+    <path refid="library.antlr-4.6-complete.classpath"/>
+    <path refid="library.poi-3.11-beta2-20140822.classpath"/>
+  </path>
+  
+  <path id="garminworkoutcreator.module.classpath">
+    <path refid="${module.jdk.classpath.garminworkoutcreator}"/>
+    <pathelement location="${garminworkoutcreator.output.dir}"/>
+    <path refid="library.fit.classpath"/>
+    <path refid="library.log4j-1.2.13.classpath"/>
+    <path refid="library.lombok.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.slf4j-api-1.7.22.classpath"/>
+    <path refid="library.antlr-4.5.3-complete.classpath"/>
+    <path refid="library.antlr-4.6-complete.classpath"/>
+    <path refid="library.poi-3.11-beta2-20140822.classpath"/>
+  </path>
+  
+  <path id="garminworkoutcreator.runtime.module.classpath">
+    <pathelement location="${garminworkoutcreator.testoutput.dir}"/>
+    <pathelement location="${garminworkoutcreator.output.dir}"/>
+    <path refid="library.fit.classpath"/>
+    <path refid="library.log4j-1.2.13.classpath"/>
+    <path refid="library.lombok.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.slf4j-api-1.7.22.classpath"/>
+    <path refid="library.antlr-4.5.3-complete.classpath"/>
+    <path refid="library.antlr-4.6-complete.classpath"/>
+    <path refid="library.poi-3.11-beta2-20140822.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.garminworkoutcreator">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.garminworkoutcreator">
+    <patternset refid="excluded.from.module.garminworkoutcreator"/>
+  </patternset>
+  
+  <path id="garminworkoutcreator.module.sourcepath">
+    <dirset dir="${module.garminworkoutcreator.basedir}">
+      <include name="src"/>
+      <include name="resources"/>
+      <include name="gen"/>
+    </dirset>
+  </path>
+  
+  <path id="garminworkoutcreator.module.test.sourcepath">
+    <dirset dir="${module.garminworkoutcreator.basedir}">
+      <include name="test"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.garminworkoutcreator" depends="compile.module.garminworkoutcreator.production,compile.module.garminworkoutcreator.tests" description="Compile module GarminWorkoutCreator"/>
+  
+  <target name="compile.module.garminworkoutcreator.production" depends="register.custom.compilers" description="Compile module GarminWorkoutCreator; production classes">
+    <mkdir dir="${garminworkoutcreator.output.dir}"/>
+    <javac2 destdir="${garminworkoutcreator.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.garminworkoutcreator}/javac">
+      <compilerarg line="${compiler.args.garminworkoutcreator}"/>
+      <bootclasspath refid="garminworkoutcreator.module.bootclasspath"/>
+      <classpath refid="garminworkoutcreator.module.production.classpath"/>
+      <src refid="garminworkoutcreator.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.garminworkoutcreator"/>
+    </javac2>
+    
+    <copy todir="${garminworkoutcreator.output.dir}">
+      <fileset dir="${module.garminworkoutcreator.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.garminworkoutcreator.basedir}/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.garminworkoutcreator.basedir}/gen">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.garminworkoutcreator.tests" depends="register.custom.compilers,compile.module.garminworkoutcreator.production" description="compile module GarminWorkoutCreator; test classes" unless="skip.tests">
+    <mkdir dir="${garminworkoutcreator.testoutput.dir}"/>
+    <javac2 destdir="${garminworkoutcreator.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.garminworkoutcreator}/javac">
+      <compilerarg line="${compiler.args.garminworkoutcreator}"/>
+      <bootclasspath refid="garminworkoutcreator.module.bootclasspath"/>
+      <classpath refid="garminworkoutcreator.module.classpath"/>
+      <src refid="garminworkoutcreator.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.garminworkoutcreator"/>
+    </javac2>
+    
+    <copy todir="${garminworkoutcreator.testoutput.dir}">
+      <fileset dir="${module.garminworkoutcreator.basedir}/test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.garminworkoutcreator" description="cleanup module">
+    <delete dir="${garminworkoutcreator.output.dir}"/>
+    <delete dir="${garminworkoutcreator.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.garminworkoutcreator" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.garminworkoutcreator" description="build all modules"/>
+
+  <target name="jar">
+    <mkdir dir="${build.jar.dir}"/>
+    <jar jarfile="${build.jar.dir}/GarminWorkoutCreator.jar">
+      <fileset dir="${garminworkoutcreator.output.dir}" includes="**/*.class"/>
+      <fileset dir="${garminworkoutcreator.output.dir}" includes="**/*.xml"/>
+    </jar>
+
+  </target>
+  
+  <target name="all" depends="build.modules, jar, bundle-garminworkoutcreator" description="build all"/>
+
+  <taskdef name="bundleapp"
+           classname="com.oracle.appbundler.AppBundlerTask"
+           classpath="lib/appbundler-1.0.jar" />
+
+
+  <target name="copy.libs">
+    <mkdir dir="${garminworkoutcreator.output.dir}/lib"/>
+    <copy todir="${garminworkoutcreator.output.dir}/lib">
+      <fileset dir="${module.garminworkoutcreator.basedir}/lib"/>
+    </copy>
+    <copy file="${build.jar.dir}/GarminWorkoutCreator.jar" todir="${garminworkoutcreator.output.dir}/lib"/>
+    <copy file="${idea.home}/lib/forms_rt.jar" todir="${garminworkoutcreator.output.dir}/lib"/>
+  </target>
+
+
+  <fileset id="build.classpath" dir="${garminworkoutcreator.output.dir}/lib">
+    <include name="**/*.jar"/>
+  </fileset>
+
+  <property environment="env" />
+
+
+  <target name="bundle-garminworkoutcreator" depends="copy.libs">
+    <mkdir dir="${build.output.dir}"/>
+    <bundleapp outputdirectory="${build.output.dir}"
+               name="GarminWorkoutCreator"
+               displayname="Garmin Workout Creator"
+               identifier="com.johnpickup.gui.ScheduleConverterForm"
+               mainclassname="com.johnpickup.gui.ScheduleConverterForm">
+      <runtime dir="${env.JAVA_HOME}" />
+      <classpath refid="build.classpath"/>
+    </bundleapp>
+  </target>
+</project>
