@@ -5,6 +5,7 @@ import com.johnpickup.parser.WorkoutSchedule;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
@@ -18,9 +19,9 @@ public class ExcelWorkoutScheduleReader {
     private WorkoutSheetReader workoutReader = new WorkoutSheetReader();
     private ScheduleSheetReader scheduleReader = new ScheduleSheetReader();
 
-    public WorkoutSchedule read(String filename) throws IOException {
+    public WorkoutSchedule read(File file) throws IOException {
         WorkoutSchedule result = new WorkoutSchedule();
-        FileInputStream inputFile = new FileInputStream(filename);
+        FileInputStream inputFile = new FileInputStream(file);
 
         Workbook wb = new HSSFWorkbook(inputFile);
         result.getPaces().putAll(paceReader.readPaces(wb.getSheet("Pace")));

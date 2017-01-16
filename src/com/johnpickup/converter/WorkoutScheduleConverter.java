@@ -47,7 +47,8 @@ public class WorkoutScheduleConverter {
         for (ScheduledWorkout scheduledWorkout: workoutSchedule.getSchedule()) {
             Workout workout = scheduledWorkout.getWorkout();
             com.johnpickup.garmin.workout.Workout garminWorkout = workoutMap.get(workout);
-            com.johnpickup.garmin.schedule.ScheduledWorkout garminScheduledWorkout = new com.johnpickup.garmin.schedule.ScheduledWorkout(garminWorkout, scheduledWorkout.getDate());
+            com.johnpickup.garmin.schedule.ScheduledWorkout garminScheduledWorkout =
+                    new com.johnpickup.garmin.schedule.ScheduledWorkout(garminWorkout, scheduledWorkout.getDate());
             trainingSchedule.addScheduledWorkout(garminScheduledWorkout);
         }
 

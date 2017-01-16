@@ -18,6 +18,12 @@ public class PaceNameConverter implements PaceConverter {
     @Override
     public PaceTarget convert(Pace pace) {
         PaceName paceName = (PaceName)pace;
-        return namedPaceTargets.get(paceName.getName());
+        String name = paceName.getName();
+        if (namedPaceTargets.containsKey(name)) {
+            return namedPaceTargets.get(name);
+        }
+        else {
+            throw new RuntimeException("Undefined named pace " + name);
+        }
     }
 }

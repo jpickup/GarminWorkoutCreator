@@ -3,6 +3,7 @@ package com.johnpickup.excel;
 import com.johnpickup.parser.*;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -15,7 +16,7 @@ public class ExcelWorkoutScheduleReaderTest {
     @Test
     public void read() throws Exception {
         ExcelWorkoutScheduleReader reader = new ExcelWorkoutScheduleReader();
-        WorkoutSchedule actual = reader.read(EXCEL_TEST_FILE);
+        WorkoutSchedule actual = reader.read(new File(EXCEL_TEST_FILE));
 
         WorkoutSchedule expected = createExpected();
 

@@ -1,9 +1,6 @@
 package com.johnpickup.parser;
 
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -20,7 +17,20 @@ public class WorkoutTextParser {
         WorkoutLexer lexer = new WorkoutLexer(charStream);
         TokenStream tokens = new CommonTokenStream(lexer);
         WorkoutParser parser = new WorkoutParser(tokens);
-        return parser.workout().w;
+        AntlrErrorHandler errorHandler = new AntlrErrorHandler();
+        parser.setErrorHandler(errorHandler);
+        Workout result = parser.workout().w;
+        if (errorHandler.isHadError()) {
+            throw new RuntimeException("Error parsing " + workoutInput +
+                    (errorHandler.getErrorMessage()==null?
+                            "":
+                            (" - " + errorHandler.getErrorMessage()))
+            );
+        }
+        else {
+            return result;
+        }
+
     }
 
 }
