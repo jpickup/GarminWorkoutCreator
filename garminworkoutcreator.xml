@@ -307,7 +307,7 @@
 
   </target>
   
-  <target name="all" depends="build.modules, jar, bundle-garminworkoutcreator" description="build all"/>
+  <target name="all" depends="build.modules, jar, bundle-garminworkoutcreator-zip" description="build all"/>
 
   <taskdef name="bundleapp"
            classname="com.oracle.appbundler.AppBundlerTask"
@@ -342,4 +342,9 @@
       <classpath refid="build.classpath"/>
     </bundleapp>
   </target>
+
+  <target name="bundle-garminworkoutcreator-zip" depends="bundle-garminworkoutcreator">
+    <zip destfile="${build.output.dir}/garminworkoutcreator.zip"  basedir="${build.output.dir}"/>
+  </target>
+
 </project>
