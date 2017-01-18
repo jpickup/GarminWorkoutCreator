@@ -23,7 +23,9 @@ public class ScheduleConverterForm {
     private JButton directoryChooserButton;
     private JTextField outputDirField;
 
-    private GarminScheduleGenerator generator = new GarminScheduleGenerator();
+    private final GarminScheduleGenerator generator = new GarminScheduleGenerator();
+
+    private ScheduleConversionWorker worker;
 
     private void init() {
         SwingMessageAppender appender = new SwingMessageAppender(loggingOutput);
@@ -89,8 +91,12 @@ public class ScheduleConverterForm {
                 File outputDir = new File(outputDirField.getText());
 
                 try {
-                    generator.generate(inputFile, outputDir);
-                    log.info("Done!");
+                    if (worker != null) {
+                        worker.cancel(true);
+                    }
+
+                    worker = new ScheduleConversionWorker(generator, inputFile, outputDir);
+                    worker.execute();
                 } catch (Exception e1) {
                     log.error(e1.getMessage());
                 }
@@ -104,7 +110,7 @@ public class ScheduleConverterForm {
         form.init();
         frame.setContentPane(form.contentPane);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
     }
