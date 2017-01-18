@@ -2,7 +2,6 @@ package com.johnpickup.parser;
 
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 /**
  * Created by john on 03/01/2017.
@@ -23,9 +22,13 @@ public class Time {
         }
     }
 
+    /**
+     * Return the time as a number of minutes
+     * @return
+     */
     public Double asDouble() {
         if (minutes != null && seconds != null) {
-            return minutes + (seconds * 1.0)/60;
+            return (minutes + seconds/60.0);
         }
         return null;
     }
