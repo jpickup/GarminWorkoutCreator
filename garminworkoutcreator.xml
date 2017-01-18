@@ -288,6 +288,7 @@
   <target name="clean.module.garminworkoutcreator" description="cleanup module">
     <delete dir="${garminworkoutcreator.output.dir}"/>
     <delete dir="${garminworkoutcreator.testoutput.dir}"/>
+    <delete dir="${build.output.dir}"/>
   </target>
   
   <target name="init" description="Build initialization">
