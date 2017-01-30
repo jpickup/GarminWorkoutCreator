@@ -308,7 +308,7 @@
 
   </target>
   
-  <target name="all" depends="build.modules, jar, bundle-garminworkoutcreator-zip" description="build all"/>
+  <target name="all" depends="build.modules, jar, bundle-garminworkoutcreator, dmg" description="build all"/>
 
   <taskdef name="bundleapp"
            classname="com.oracle.appbundler.AppBundlerTask"
@@ -344,8 +344,91 @@
     </bundleapp>
   </target>
 
-  <target name="bundle-garminworkoutcreator-zip" depends="bundle-garminworkoutcreator">
-    <zip destfile="${build.output.dir}/garminworkoutcreator.zip"  basedir="${build.output.dir}"/>
+  <target name="bundle-garminworkoutcreator-tgz" depends="bundle-garminworkoutcreator">
+    <tar destfile="${build.output.dir}/garminworkoutcreator.tgz"  basedir="${build.output.dir}" compression="gzip"/>
   </target>
+
+  <!-- Create a DMG - This only works on MacOSX (requires hdiutil) -->
+  <target name="dmg"
+          description="Create a DMG package for MacOSX (only works on MacOSX)">
+
+    <!-- Set this property value to your application name -->
+    <property name="app.name"
+              value="GarminWorkoutCreator"/>
+
+    <!-- Set this property value to a directory where you can
+         mount temporarily your images, for example /tmp -->
+    <property name="mountdir"
+              value="/tmp"/>
+
+    <!-- Delete previously created DMG -->
+    <delete file="${app.name}.dmg}"
+            quiet="yes" failonerror="false"/>
+
+    <!-- Create a temporary Disk Image -->
+    <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+      <arg value="create"/>
+      <arg value="-srcfolder"/>
+      <arg value="${build.output.dir}/${app.name}.app"/>
+      <arg value="-volname"/>
+      <arg value="${app.name}"/>
+      <arg value="-ov"/>
+      <arg value="${build.output.dir}/${app.name}-tmp.dmg"/>
+      <arg value="-format"/>
+      <arg value="UDRW"/>
+    </exec>
+
+    <!-- Attach the temporary image -->
+    <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+      <arg value="attach"/>
+      <arg value="${build.output.dir}/${app.name}-tmp.dmg"/>
+      <arg value="-mountroot"/>
+      <arg value="${mountdir}/"/>
+    </exec>
+
+    <!-- Copy the background, the volume icon and DS_Store files -->
+    <mkdir dir="${mountdir}/${app.name}/.background"/>
+    <copy file="img/dmg-bg.png"
+          tofile="${mountdir}/${app.name}/.background/background.png"
+          overwrite="true"/>
+    <copy file="img/VolumeIcon.icns"
+          tofile="${mountdir}/${app.name}/.VolumeIcon.icns"
+          overwrite="true"/>
+    <!--copy file="DS_Store"
+          tofile="${mountdir}/${app.name}/.DS_Store"
+          overwrite="true"/-->
+
+    <!-- Indicate that we want a custom icon -->
+    <exec executable="/usr/bin/SetFile" os="Mac OS X">
+      <arg value="-a"/>
+      <arg value="C"/>
+      <arg value="${mountdir}/${app.name}"/>
+    </exec>
+
+    <!-- Add a symbolic link to the Applications directory -->
+    <symlink link="${mountdir}/${app.name}" resource="/Applications"/>
+
+    <!-- Detach the temporary image -->
+    <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+      <arg value="detach"/>
+      <arg value="${mountdir}/${app.name}"/>
+    </exec>
+
+    <!-- Compress it to a new image -->
+    <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+      <arg value="convert"/>
+      <arg value="${build.output.dir}/${app.name}-tmp.dmg"/>
+      <arg value="-format"/>
+      <arg value="UDZO"/>
+      <arg value="-o"/>
+      <arg value="${build.output.dir}/${app.name}.dmg"/>
+    </exec>
+
+    <!-- Delete the temporary image -->
+    <delete file="${app.name}-tmp.dmg"
+            quiet="yes" failonerror="false"/>
+  </target>
+
+
 
 </project>
