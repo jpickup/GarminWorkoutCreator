@@ -26,31 +26,37 @@ public class GarminScheduleGenerator {
     }
 
     public void generate(File inputFile, File outputDir) throws IOException {
-        log.info("Converting {}", inputFile.getPath());
-        log.info("Writing output to {}", outputDir.getPath());
-        ExcelWorkoutScheduleReader reader = new ExcelWorkoutScheduleReader();
-        WorkoutScheduleConverter converter = new WorkoutScheduleConverter();
-        WorkoutSaver workoutSaver = new WorkoutSaver();
-        log.info("Reading workout schedule");
-        WorkoutSchedule workoutSchedule = reader.read(inputFile);
+        try {
+            log.info("Converting {}", inputFile.getPath());
+            log.info("Writing output to {}", outputDir.getPath());
+            ExcelWorkoutScheduleReader reader = new ExcelWorkoutScheduleReader();
+            WorkoutScheduleConverter converter = new WorkoutScheduleConverter();
+            WorkoutSaver workoutSaver = new WorkoutSaver();
+            log.info("Reading workout schedule");
+            WorkoutSchedule workoutSchedule = reader.read(inputFile);
 
-        log.info("Converting workout schedule");
-        converter.convert(workoutSchedule);
+            log.info("Converting workout schedule");
+            converter.convert(workoutSchedule);
 
-        log.info("Saving workouts");
-        for (com.johnpickup.garmin.workout.Workout garminWorkout : converter.getGarminWorkouts()) {
-            String workoutFilename = generateWorkoutFilename(garminWorkout);
-            File workoutFile = new File(outputDir, workoutFilename);
-            log.debug("Saving workout {} as {}", garminWorkout.getName(), workoutFile.getPath());
-            workoutSaver.save(garminWorkout, workoutFile);
-            log.info("Saved workout {} as {}", garminWorkout.getName(), workoutFile.getPath());
+            log.info("Saving workouts");
+            for (com.johnpickup.garmin.workout.Workout garminWorkout : converter.getGarminWorkouts()) {
+                String workoutFilename = generateWorkoutFilename(garminWorkout);
+                File workoutFile = new File(outputDir, workoutFilename);
+                log.debug("Saving workout {} as {}", garminWorkout.getName(), workoutFile.getPath());
+                workoutSaver.save(garminWorkout, workoutFile);
+                log.info("Saved workout {} as {}", garminWorkout.getName(), workoutFile.getPath());
+            }
+
+            String scheduleFilename = "schedule.fit";
+            File scheduleFile = new File(outputDir, scheduleFilename);
+            log.info("Saving schedule as {}", scheduleFile.getPath());
+            workoutSaver.save(converter.getTrainingSchedule(), scheduleFile);
+            log.info("Saved workout schedule as {}", scheduleFile.getPath());
         }
-
-        String scheduleFilename = "schedule.fit";
-        File scheduleFile = new File(outputDir, scheduleFilename);
-        log.info("Saving schedule as {}", scheduleFile.getPath());
-        workoutSaver.save(converter.getTrainingSchedule(), scheduleFile);
-        log.info("Saved workout schedule as {}", scheduleFile.getPath());
+        catch (RuntimeException e) {
+            log.error("Error converting {}", inputFile.getPath());
+            log.error(e.getMessage());
+        }
     }
 
     private String generateWorkoutFilename(com.johnpickup.garmin.workout.Workout garminWorkout) {
