@@ -105,7 +105,7 @@ public class ScheduleConverterForm {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("ScheduleConverterForm");
+        JFrame frame = new JFrame("Garmin Workout Schedule Converter");
         ScheduleConverterForm form = new ScheduleConverterForm();
         form.init();
         frame.setContentPane(form.contentPane);

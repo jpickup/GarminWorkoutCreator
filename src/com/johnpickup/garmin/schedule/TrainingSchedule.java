@@ -42,17 +42,21 @@ public class TrainingSchedule implements FitGenerator {
     @Override
     public List<Mesg> generate() {
         List<Mesg> messages = createMessageHeader();
+        Date now = new Date();
 
         for (ScheduledWorkout scheduledWorkout : workouts) {
-            ScheduleMesg scheduleMesg = new ScheduleMesg();
-            scheduleMesg.setManufacturer(Manufacturer.GARMIN);
-            scheduleMesg.setProduct(65534);
-            scheduleMesg.setType(Schedule.WORKOUT);
-            scheduleMesg.setTimeCreated(new DateTime(scheduledWorkout.getWorkout().getTimestamp()));
-            scheduleMesg.setScheduledTime(scheduledWorkout.getGarminTime());
-            scheduleMesg.setSerialNumber(SERIAL_NO);
-            scheduleMesg.setCompleted(Bool.FALSE);
-            messages.add(scheduleMesg);
+            // only include future workouts (as watch has a limit of 30 in a schedule)
+            if (scheduledWorkout.getDate().after(now)) {
+                ScheduleMesg scheduleMesg = new ScheduleMesg();
+                scheduleMesg.setManufacturer(Manufacturer.GARMIN);
+                scheduleMesg.setProduct(65534);
+                scheduleMesg.setType(Schedule.WORKOUT);
+                scheduleMesg.setTimeCreated(new DateTime(scheduledWorkout.getWorkout().getTimestamp()));
+                scheduleMesg.setScheduledTime(scheduledWorkout.getGarminTime());
+                scheduleMesg.setSerialNumber(SERIAL_NO);
+                scheduleMesg.setCompleted(Bool.FALSE);
+                messages.add(scheduleMesg);
+            }
         }
 
         return messages;
