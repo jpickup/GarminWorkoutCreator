@@ -8,7 +8,7 @@ import org.apache.log4j.spi.LoggingEvent;
 import javax.swing.*;
 
 /**
- * Siply log4j appender that appends the message textArea to the Swing textArea area
+ * Simple log4j appender that appends the message text to the Swing textArea
  */
 @RequiredArgsConstructor
 public class SwingMessageAppender extends AppenderSkeleton {
