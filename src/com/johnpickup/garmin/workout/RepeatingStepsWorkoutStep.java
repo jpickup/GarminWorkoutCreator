@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Simple workout the lasts a specific distance with a pace target
+ * Workout that repeats the component steps a specific number of times
  */
 @RequiredArgsConstructor
 @EqualsAndHashCode(callSuper = false)
