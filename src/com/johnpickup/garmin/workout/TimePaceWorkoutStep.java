@@ -4,7 +4,6 @@ import com.garmin.fit.Intensity;
 import com.garmin.fit.WktStepDuration;
 import com.garmin.fit.WktStepTarget;
 import com.garmin.fit.WorkoutStepMesg;
-import com.johnpickup.garmin.unit.Distance;
 import com.johnpickup.garmin.unit.PaceTarget;
 import com.johnpickup.garmin.unit.Time;
 import lombok.EqualsAndHashCode;

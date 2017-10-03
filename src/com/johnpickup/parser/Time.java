@@ -24,7 +24,7 @@ public class Time {
 
     /**
      * Return the time as a number of minutes
-     * @return
+     * @return this time in fraction of a minute units
      */
     public Double asDouble() {
         if (minutes != null && seconds != null) {

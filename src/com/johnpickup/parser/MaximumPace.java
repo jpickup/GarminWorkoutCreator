@@ -1,8 +1,6 @@
 package com.johnpickup.parser;
 
 import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 /**
  * Created by john on 03/01/2017.

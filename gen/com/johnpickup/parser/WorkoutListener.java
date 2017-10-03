@@ -1,8 +1,6 @@
 // Generated from /Users/john/Development/GarminWorkoutCreator/grammar/Workout.g4 by ANTLR 4.6
 package com.johnpickup.parser;
 
-import java.util.ArrayList;
-
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

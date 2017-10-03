@@ -4,7 +4,6 @@ import com.johnpickup.garmin.unit.PaceTarget;
 import com.johnpickup.garmin.unit.PaceUnit;
 import com.johnpickup.parser.MaximumPace;
 import com.johnpickup.parser.Pace;
-import com.johnpickup.parser.PaceRange;
 
 /**
  * Created by john on 09/01/2017.

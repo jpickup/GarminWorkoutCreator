@@ -1,10 +1,8 @@
 package com.johnpickup.converter;
 
 import com.johnpickup.garmin.unit.PaceTarget;
-import com.johnpickup.garmin.unit.PaceUnit;
 import com.johnpickup.parser.Pace;
 import com.johnpickup.parser.PaceName;
-import com.johnpickup.parser.PaceRange;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Map;

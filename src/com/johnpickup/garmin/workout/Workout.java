@@ -2,7 +2,6 @@ package com.johnpickup.garmin.workout;
 
 import com.garmin.fit.*;
 import com.johnpickup.garmin.fit.FitGenerator;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 

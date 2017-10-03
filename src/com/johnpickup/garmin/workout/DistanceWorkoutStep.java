@@ -5,7 +5,6 @@ import com.johnpickup.garmin.unit.Distance;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

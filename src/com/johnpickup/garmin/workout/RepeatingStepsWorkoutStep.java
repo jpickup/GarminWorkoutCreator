@@ -1,8 +1,6 @@
 package com.johnpickup.garmin.workout;
 
 import com.garmin.fit.*;
-import com.johnpickup.garmin.unit.Distance;
-import com.johnpickup.garmin.unit.PaceTarget;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
