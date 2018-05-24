@@ -1,5 +1,7 @@
-// Generated from /Users/john/Development/GarminWorkoutCreator/grammar/Workout.g4 by ANTLR 4.6
+// Generated from /Users/john/Development/GarminWorkoutCreator/grammar/Workout.g4 by ANTLR 4.7
 package com.johnpickup.parser;
+
+import java.util.ArrayList;
 
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -42,6 +44,12 @@ public interface WorkoutVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDistance_pace_step(WorkoutParser.Distance_pace_stepContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link WorkoutParser#distance_hr_step}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDistance_hr_step(WorkoutParser.Distance_hr_stepContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link WorkoutParser#time_step}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -53,6 +61,12 @@ public interface WorkoutVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTime_pace_step(WorkoutParser.Time_pace_stepContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link WorkoutParser#time_hr_step}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTime_hr_step(WorkoutParser.Time_hr_stepContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link WorkoutParser#repeating_steps}.
 	 * @param ctx the parse tree
@@ -83,6 +97,24 @@ public interface WorkoutVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPace_range(WorkoutParser.Pace_rangeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link WorkoutParser#hr_range}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHr_range(WorkoutParser.Hr_rangeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link WorkoutParser#hr_unit}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHr_unit(WorkoutParser.Hr_unitContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link WorkoutParser#hr_zone}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHr_zone(WorkoutParser.Hr_zoneContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link WorkoutParser#time}.
 	 * @param ctx the parse tree

@@ -1,5 +1,7 @@
-// Generated from /Users/john/Development/GarminWorkoutCreator/grammar/Workout.g4 by ANTLR 4.6
+// Generated from /Users/john/Development/GarminWorkoutCreator/grammar/Workout.g4 by ANTLR 4.7
 package com.johnpickup.parser;
+
+import java.util.ArrayList;
 
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -77,6 +79,18 @@ public class WorkoutBaseListener implements WorkoutListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterDistance_hr_step(WorkoutParser.Distance_hr_stepContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDistance_hr_step(WorkoutParser.Distance_hr_stepContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTime_step(WorkoutParser.Time_stepContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -96,6 +110,18 @@ public class WorkoutBaseListener implements WorkoutListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTime_pace_step(WorkoutParser.Time_pace_stepContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTime_hr_step(WorkoutParser.Time_hr_stepContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTime_hr_step(WorkoutParser.Time_hr_stepContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -156,6 +182,42 @@ public class WorkoutBaseListener implements WorkoutListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPace_range(WorkoutParser.Pace_rangeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHr_range(WorkoutParser.Hr_rangeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHr_range(WorkoutParser.Hr_rangeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHr_unit(WorkoutParser.Hr_unitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHr_unit(WorkoutParser.Hr_unitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHr_zone(WorkoutParser.Hr_zoneContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHr_zone(WorkoutParser.Hr_zoneContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

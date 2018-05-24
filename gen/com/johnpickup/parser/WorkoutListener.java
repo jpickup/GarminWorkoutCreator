@@ -1,5 +1,7 @@
-// Generated from /Users/john/Development/GarminWorkoutCreator/grammar/Workout.g4 by ANTLR 4.6
+// Generated from /Users/john/Development/GarminWorkoutCreator/grammar/Workout.g4 by ANTLR 4.7
 package com.johnpickup.parser;
+
+import java.util.ArrayList;
 
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -59,6 +61,16 @@ public interface WorkoutListener extends ParseTreeListener {
 	 */
 	void exitDistance_pace_step(WorkoutParser.Distance_pace_stepContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link WorkoutParser#distance_hr_step}.
+	 * @param ctx the parse tree
+	 */
+	void enterDistance_hr_step(WorkoutParser.Distance_hr_stepContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link WorkoutParser#distance_hr_step}.
+	 * @param ctx the parse tree
+	 */
+	void exitDistance_hr_step(WorkoutParser.Distance_hr_stepContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link WorkoutParser#time_step}.
 	 * @param ctx the parse tree
 	 */
@@ -78,6 +90,16 @@ public interface WorkoutListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTime_pace_step(WorkoutParser.Time_pace_stepContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link WorkoutParser#time_hr_step}.
+	 * @param ctx the parse tree
+	 */
+	void enterTime_hr_step(WorkoutParser.Time_hr_stepContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link WorkoutParser#time_hr_step}.
+	 * @param ctx the parse tree
+	 */
+	void exitTime_hr_step(WorkoutParser.Time_hr_stepContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link WorkoutParser#repeating_steps}.
 	 * @param ctx the parse tree
@@ -128,6 +150,36 @@ public interface WorkoutListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPace_range(WorkoutParser.Pace_rangeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link WorkoutParser#hr_range}.
+	 * @param ctx the parse tree
+	 */
+	void enterHr_range(WorkoutParser.Hr_rangeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link WorkoutParser#hr_range}.
+	 * @param ctx the parse tree
+	 */
+	void exitHr_range(WorkoutParser.Hr_rangeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link WorkoutParser#hr_unit}.
+	 * @param ctx the parse tree
+	 */
+	void enterHr_unit(WorkoutParser.Hr_unitContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link WorkoutParser#hr_unit}.
+	 * @param ctx the parse tree
+	 */
+	void exitHr_unit(WorkoutParser.Hr_unitContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link WorkoutParser#hr_zone}.
+	 * @param ctx the parse tree
+	 */
+	void enterHr_zone(WorkoutParser.Hr_zoneContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link WorkoutParser#hr_zone}.
+	 * @param ctx the parse tree
+	 */
+	void exitHr_zone(WorkoutParser.Hr_zoneContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link WorkoutParser#time}.
 	 * @param ctx the parse tree

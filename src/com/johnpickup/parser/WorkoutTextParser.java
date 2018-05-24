@@ -15,7 +15,7 @@ import java.io.InputStream;
 public class WorkoutTextParser {
     public Workout parse(String workoutInput) throws IOException {
         InputStream input = new ByteArrayInputStream(workoutInput.getBytes());
-        CharStream charStream = new ANTLRInputStream(input);
+        CharStream charStream = CharStreams.fromStream(input);
         WorkoutLexer lexer = new WorkoutLexer(charStream);
         TokenStream tokens = new CommonTokenStream(lexer);
         WorkoutParser parser = new WorkoutParser(tokens);

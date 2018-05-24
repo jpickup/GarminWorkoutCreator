@@ -5,6 +5,8 @@ Examples:
     2 mi@STEADY                 - 2 miles as a named pace target
     3 km < 5:00/km              - 3km faster than 5 minutes per km
     8 km @ 5:00 - 7:00 / km     - 8km at a pace target defined as a range
+    1mi @ Z3                    - 1mi at heart rate Zone 3
+    2km @ 120-150bpm            - 2km at a heart rate between 120 and 150 beats per minute
     (1 mi@FAST + 400m@EASY) * 8 - interval session of 8 repeats of 1 mile fast with 400m recoveries
 */
 
@@ -26,8 +28,10 @@ stepList returns [List<Step> steps]
 step returns [Step value]
    : distance_step      {$value = $distance_step.value;}
    | distance_pace_step {$value = $distance_pace_step.value;}
+   | distance_hr_step   {$value = $distance_hr_step.value;}
    | time_step          {$value = $time_step.value;}
    | time_pace_step     {$value = $time_pace_step.value;}
+   | time_hr_step       {$value = $time_hr_step.value;}
    | repeating_steps    {$value = $repeating_steps.value;}
    ;
    
@@ -41,6 +45,11 @@ distance_pace_step returns [DistancePaceStep value]
    | distance '@' pace_range    {$value = new DistancePaceStep($distance.value, $pace_range.value);}
    ;
 
+distance_hr_step returns [DistanceHeartRateStep value]
+   : distance '@' hr_range    {$value = new DistanceHeartRateStep($distance.value, $hr_range.value);}
+   | distance '@' hr_zone     {$value = new DistanceHeartRateStep($distance.value, $hr_zone.value);}
+   ;
+
 time_step returns [TimeStep value]
    : time               {$value = new TimeStep($time.value);}
    ;
@@ -49,6 +58,11 @@ time_pace_step returns [TimePaceStep value]
    : time '<' pace          {$value = new TimePaceStep($time.value, new MaximumPace($pace.value));}
    | time '>' pace          {$value = new TimePaceStep($time.value, new MinimumPace($pace.value));}
    | time '@' pace_range    {$value = new TimePaceStep($time.value, $pace_range.value);}
+   ;
+
+time_hr_step returns [TimeHeartRateStep value]
+   : time '@' hr_range    {$value = new TimeHeartRateStep($time.value, $hr_range.value);}
+   | time '@' hr_zone     {$value = new TimeHeartRateStep($time.value, $hr_zone.value);}
    ;
 
 repeating_steps returns [RepeatingSteps value]
@@ -65,8 +79,8 @@ distance returns [Distance value]
    
 distance_unit returns [DistanceUnit value]
    : 'm'                {$value = DistanceUnit.METRE;}
-   | 'mi'               {$value =  DistanceUnit.MILE;}
-   | 'km'               {$value =  DistanceUnit.KILOMETRE;}
+   | 'mi'               {$value = DistanceUnit.MILE;}
+   | 'km'               {$value = DistanceUnit.KILOMETRE;}
    ;
 
 pace returns [PaceLimit value]
@@ -77,7 +91,23 @@ pace_range returns [Pace value]
    : t1=time '-' t2=time '/' distance_unit      {$value = new PaceRange($t1.value, $t2.value, PaceUnit.perDistanceUnit($distance_unit.value));}
    | name                                       {$value = new PaceName($text);}
    ;
-     
+
+hr_range returns [HeartRate value]
+   : h1=cardinal '-' h2=cardinal hr_unit        {$value = new HeartRateRange($h1.value, $h2.value, $hr_unit.value);}
+   ;
+
+hr_unit returns [HeartRateUnit value]
+   : 'bpm'              {$value = HeartRateUnit.BPM;}
+   ;
+
+hr_zone returns [HeartRateZone value]
+   : 'Z1'               {$value = HeartRateZone.Z1;}
+   | 'Z2'               {$value = HeartRateZone.Z2;}
+   | 'Z3'               {$value = HeartRateZone.Z3;}
+   | 'Z4'               {$value = HeartRateZone.Z4;}
+   | 'Z5'               {$value = HeartRateZone.Z5;}
+   ;
+
 time returns [Time value]
    : DIGIT + COLON DIGIT DIGIT {$value = Time.parseTime($text);}
    ;
