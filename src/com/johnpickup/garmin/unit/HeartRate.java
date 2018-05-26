@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Encapsulation of various pace/speed standards with human-readable toString plus a conversion to Garmin units
+ * Encapsulation of custom heart rate value with human-readable toString plus a conversion to Garmin units
  */
 @RequiredArgsConstructor
 @EqualsAndHashCode
@@ -18,7 +18,7 @@ public class HeartRate {
     }
 
     public Long toGarminHeartRate() {
-        // Garmin HR units are in bpm + 100 ( 0 .. 100 reserved for HR zones)
+        // Garmin HR units are in bpm + 100 ( 0 .. 100 reserved for HR %)
         switch (unit) {
             case BEATS_PER_MINUTE: return value + 100;
         }

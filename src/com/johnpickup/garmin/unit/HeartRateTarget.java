@@ -1,39 +1,16 @@
 package com.johnpickup.garmin.unit;
 
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 /**
- * Heart Rate target - a minimum and maximum HR
+ * Heart Rate target - either a zone or a custom minimum and maximum HR (in subclasses)
  */
 @EqualsAndHashCode
-public class HeartRateTarget {
-    @Getter
-    private final HeartRate maxHeartRate;
-    @Getter
-    private final HeartRate minHeartRate;
+public abstract class HeartRateTarget{
 
-    public HeartRateTarget(long min, long max, HeartRateUnit unit) {
-        this.minHeartRate = new HeartRate(min, unit);
-        this.maxHeartRate = new HeartRate(max, unit);
-    }
+    public abstract Long getGarminLow();
 
-    @Override
-    public String toString() {
-        return minHeartRate.toValueString() + "-" + maxHeartRate.toString();
-    }
+    public abstract Long getGarminHigh();
 
-    public Long getGarminLow() {
-        if (minHeartRate.toGarminHeartRate() < maxHeartRate.toGarminHeartRate())
-            return minHeartRate.toGarminHeartRate();
-        else
-            return maxHeartRate.toGarminHeartRate();
-    }
-
-    public Long getGarminHigh() {
-        if (minHeartRate.toGarminHeartRate() < maxHeartRate.toGarminHeartRate())
-            return maxHeartRate.toGarminHeartRate();
-        else
-            return minHeartRate.toGarminHeartRate();
-    }
+    public abstract Long getTargetValue();
 }

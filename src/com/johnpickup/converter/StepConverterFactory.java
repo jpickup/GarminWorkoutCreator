@@ -15,8 +15,10 @@ public class StepConverterFactory {
     private StepConverterFactory() {
         register(new DistanceStepConverter(), DistanceStep.class);
         register(new DistancePaceStepConverter(), DistancePaceStep.class);
+        register(new DistanceHeartRateStepConverter(), DistanceHeartRateStep.class);
         register(new TimeStepConverter(), TimeStep.class);
         register(new TimePaceStepConverter(), TimePaceStep.class);
+        register(new TimeHeartRateStepConverter(), TimeHeartRateStep.class);
         register(new RepeatingStepsConverter(), RepeatingSteps.class);
     }
 
