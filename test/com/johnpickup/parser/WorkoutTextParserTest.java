@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.johnpickup.parser.HeartRateZone.Z3;
 import static org.junit.Assert.*;
 
 /**
@@ -34,6 +35,39 @@ public class WorkoutTextParserTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void parseSimpleDistanceHeartRate() throws Exception {
+        Workout actual = classUnderTest.parse("1mi@100-140bpm");
+        Workout expected = new Workout(Collections.singletonList(new DistanceHeartRateStep(
+                new Distance(1, DistanceUnit.MILE),
+                new HeartRateRange(100, 140, HeartRateUnit.BPM))));
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void parseSimpleDistanceHeartRateZone() throws Exception {
+        Workout actual = classUnderTest.parse("1mi@Z3");
+        Workout expected = new Workout(Collections.singletonList(new DistanceHeartRateStep(
+                new Distance(1, DistanceUnit.MILE), Z3)));
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void parseSimpleTimeHeartRateRange() throws Exception {
+        Workout actual = classUnderTest.parse("10:00@120-160bpm");
+        Workout expected = new Workout(Collections.singletonList(new TimeHeartRateStep(
+                new Time(10, 0),
+                new HeartRateRange(120, 160, HeartRateUnit.BPM))));
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void parseSimpleTimeHeartRateZone() throws Exception {
+        Workout actual = classUnderTest.parse("10:00@Z3");
+        Workout expected = new Workout(Collections.singletonList(new TimeHeartRateStep(
+                new Time(10,0), Z3)));
+        assertEquals(expected, actual);
+    }
     @Test
     public void parseSimpleTime() throws Exception {
         Workout actual = classUnderTest.parse("10:00");
