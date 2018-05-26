@@ -1,2 +1,2 @@
 # GarminWorkoutCreator
-Create FIT files for Garmin devices
+Create workouts and workout schedules for Garmin devices using an Excel spreadsheet to define them. 
