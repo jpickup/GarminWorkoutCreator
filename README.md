@@ -34,6 +34,32 @@ More examples can be found in `ExampleWorkoutSchedule.xls`
 The grammar for the language is defined in `grammar/Workout.g4`, which is an ANTLR4 grammar that is used to generate 
 Java code.
 
+## Excel workbook
+The app expects the input workbook to have specific named sheets and specific column headers within these. Any additional 
+sheets or columns are ignored.
+
+| Sheet | Description |
+| ---- | ----------- |
+| Pace | Named page ranges for use as a shorthand in workout definitions |
+| Workout | Named workouts in the workout language described above |
+| Schedule | A schedule for workouts for speicifc dates |
+
+| Sheet | Column | Description |
+| ---- | ------ | ----------- |
+| Pace | Name  | The name for a pace |
+| Pace | Value | The pace defined in workout language |
+| Workout | Name | The name for a workout |
+| Workout | Description | The workout language definition, may include named paces defined in the pace sheet |
+| Schedule | Date | The date for a specific workout |
+| Schedule | Workout | Either defined in the workout language or the name a named workout from the Workout sheet |
+
+ 
+
 ## Building
 The ant build script is `GarminWorkoutCreator.iml`. This creates a macOS bundle with a JRE included meaning that it runs 
 without the need for a Java installation on the target machine
+
+## Running 
+The app runs as a very simple UI allowing you to select the source Excel workbook and a output target directory for 
+the FIT files. The default output directory is `/Volumes/GARMIN/GARMIN/NEWFILES/`, which is the destination when the 
+watch is connected to a Mac via USB. 
