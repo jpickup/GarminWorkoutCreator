@@ -103,7 +103,11 @@
   <path id="library.antlr-4.6-complete.classpath">
     <pathelement location="${basedir}/lib/antlr-4.6-complete.jar"/>
   </path>
-  
+
+  <path id="library.antlr-4.7.1-complete.classpath">
+    <pathelement location="${basedir}/lib/antlr-4.7.1-complete.jar"/>
+  </path>
+
   <path id="library.fit.classpath">
     <pathelement location="${basedir}/lib/fit.jar"/>
   </path>
@@ -174,6 +178,7 @@
     <path refid="library.slf4j-api-1.7.22.classpath"/>
     <path refid="library.antlr-4.5.3-complete.classpath"/>
     <path refid="library.antlr-4.6-complete.classpath"/>
+    <path refid="library.antlr-4.7.1-complete.classpath"/>
     <path refid="library.poi-3.11-beta2-20140822.classpath"/>
   </path>
   
@@ -186,6 +191,7 @@
     <path refid="library.slf4j-api-1.7.22.classpath"/>
     <path refid="library.antlr-4.5.3-complete.classpath"/>
     <path refid="library.antlr-4.6-complete.classpath"/>
+    <path refid="library.antlr-4.7.1-complete.classpath"/>
     <path refid="library.poi-3.11-beta2-20140822.classpath"/>
   </path>
   
@@ -199,6 +205,7 @@
     <path refid="library.slf4j-api-1.7.22.classpath"/>
     <path refid="library.antlr-4.5.3-complete.classpath"/>
     <path refid="library.antlr-4.6-complete.classpath"/>
+    <path refid="library.antlr-4.7.1-complete.classpath"/>
     <path refid="library.poi-3.11-beta2-20140822.classpath"/>
   </path>
   
@@ -212,6 +219,7 @@
     <path refid="library.slf4j-api-1.7.22.classpath"/>
     <path refid="library.antlr-4.5.3-complete.classpath"/>
     <path refid="library.antlr-4.6-complete.classpath"/>
+    <path refid="library.antlr-4.7.1-complete.classpath"/>
     <path refid="library.poi-3.11-beta2-20140822.classpath"/>
   </path>
   

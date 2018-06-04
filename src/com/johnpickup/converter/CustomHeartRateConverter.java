@@ -10,7 +10,7 @@ public class CustomHeartRateConverter implements HeartRateConverter {
     @Override
     public HeartRateTarget convert(HeartRate heartRate) {
         HeartRateRange heartRateRange = (HeartRateRange) heartRate;
-        HeartRateUnit unit = null;
+        HeartRateUnit unit;
         switch (heartRateRange.getUnit()) {
             case BPM:
                 unit = HeartRateUnit.BEATS_PER_MINUTE;
