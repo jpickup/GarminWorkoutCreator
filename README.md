@@ -42,7 +42,7 @@ sheets or columns are ignored.
 | ---- | ----------- |
 | Pace | Named page ranges for use as a shorthand in workout definitions |
 | Workout | Named workouts in the workout language described above |
-| Schedule | A schedule for workouts for speicifc dates |
+| Schedule | A schedule for workouts for specific dates |
 
 | Sheet | Column | Description |
 | ---- | ------ | ----------- |
