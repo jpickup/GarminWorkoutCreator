@@ -33,7 +33,7 @@ public class DistanceHeartRateWorkoutStep extends WorkoutStep {
         step.setDurationType(WktStepDuration.DISTANCE);
         step.setDurationDistance(distance.toGarminDistance());
         step.setTargetType(WktStepTarget.HEART_RATE);
-        step.setTargetValue(0L);
+        step.setTargetValue(heartRateTarget.getTargetValue());
         step.setMessageIndex(generateWorkoutStepIndex());
         step.setCustomTargetValueLow(heartRateTarget.getGarminLow());
         step.setCustomTargetValueHigh(heartRateTarget.getGarminHigh());

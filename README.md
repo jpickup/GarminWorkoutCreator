@@ -21,7 +21,10 @@ Steps are written as text, for example:
 | `1mi` | A step of 1 mile |
 | `400m` | A step of 400 metres |
 | `100m@4:00-5:00/km` | A step of 100 metres with a target pace between 4 and 5 minutes per kilometre |
-| `1mi>6mph` | 1 mile faster than 6 miles per hour |
+| `1mi>6mph` | 1 mile at a pace faster than 6 miles per hour |
+| 800m@Z3 | 800 metres in heart rate Zone 3 |
+| 400m@160-180bpm | 400 metres wth a heart rate between 160 and 180 beats per minute |
+
 
 Steps can also be strung together with a `+` character, repeated using `*n` and grouped using brackets, for example:
 

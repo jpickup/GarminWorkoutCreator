@@ -8,7 +8,7 @@ public class ZoneHeartRateTarget extends HeartRateTarget {
 
     @Override
     public Long getGarminLow() {
-        return zone;
+        return 0L;
     }
 
     @Override
@@ -18,6 +18,6 @@ public class ZoneHeartRateTarget extends HeartRateTarget {
 
     @Override
     public Long getTargetValue() {
-        return 0L;
+        return zone;
     }
 }
