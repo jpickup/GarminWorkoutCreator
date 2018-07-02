@@ -59,7 +59,7 @@ sheets or columns are ignored.
  
 
 ## Building
-The ant build script is `GarminWorkoutCreator.iml`. This creates a macOS bundle with a JRE included meaning that it runs 
+The ant build script is `garminworkoutcreator.xml`. This creates a macOS bundle with a JRE included meaning that it runs 
 without the need for a Java installation on the target machine
 
 ## Running 
