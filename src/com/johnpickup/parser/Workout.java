@@ -3,7 +3,6 @@ package com.johnpickup.parser;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 import java.util.List;
 
@@ -11,9 +10,17 @@ import java.util.List;
  * Created by john on 03/01/2017.
  */
 @RequiredArgsConstructor
-@ToString
 @EqualsAndHashCode
+@Getter
 public class Workout {
-    @Getter
     private final List<? extends Step> steps;
+
+    @Override
+    public String toString() {
+        String result = null;
+        for (Step step : steps) {
+            result = result==null?step.toString():result + " + " + step.toString();
+        }
+        return result;
+    }
 }

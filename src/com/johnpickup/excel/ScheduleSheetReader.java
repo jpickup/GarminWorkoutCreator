@@ -50,7 +50,7 @@ public class ScheduleSheetReader {
             workouts.put(value, workout);
         }
 
-        return new ScheduledWorkout(date, workout);
+        return new ScheduledWorkout(date, workout, value, workout.toString());
     }
 
     private void readHeaderRow(Row row) {

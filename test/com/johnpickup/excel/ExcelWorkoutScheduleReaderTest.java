@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.io.File;
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by john on 10/01/2017.
@@ -52,16 +52,16 @@ public class ExcelWorkoutScheduleReaderTest {
         expected.getWorkouts().put("30min",halfHour);
         expected.getWorkouts().put("5min Fast", fiveMinFast);
 
-        expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,1,10), fiveMileSlow));
-        expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,1,20), intervalWorkout));
-        expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,1,30), sixMileSteady));
+        expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,1,10), fiveMileSlow, "5mi Slow", "5mi@Slow"));
+        expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,1,20), intervalWorkout, "Interval", "Interval"));
+        expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,1,30), sixMileSteady,"6mi Steady", "6mi@Steady"));
         List<Step> onePlusFourSteps = new ArrayList<>();
         onePlusFourSteps.add(new DistanceStep(new Distance(1, DistanceUnit.MILE)));
         onePlusFourSteps.add(new DistancePaceStep(new Distance(4, DistanceUnit.MILE), new PaceName("Brisk")));
         Workout onePlusFourMileBrisk = new Workout(onePlusFourSteps);
-        expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,2,1), onePlusFourMileBrisk));
+        expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,2,1), onePlusFourMileBrisk, "onePlusFourMileBrisk", "onePlusFourMileBrisk"));
         Workout threeMileExplicit = new Workout(Collections.singletonList(new DistancePaceStep(new Distance(3, DistanceUnit.MILE), new PaceRange(new Time(8,0), new Time(10,0), PaceUnit.MIN_PER_MILE))));
-        expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,2,11), threeMileExplicit));
+        expected.getSchedule().add(new ScheduledWorkout(buildDate(2017,2,11), threeMileExplicit, "threeMileExplicit", "threeMileExplicit"));
 
 
         expected.getWorkouts().put("1mi+4mi@Brisk",onePlusFourMileBrisk);

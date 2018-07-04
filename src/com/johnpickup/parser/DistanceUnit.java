@@ -6,5 +6,15 @@ package com.johnpickup.parser;
 public enum DistanceUnit {
     METRE,
     KILOMETRE,
-    MILE
+    MILE;
+
+    @Override
+    public String toString() {
+        switch (this) {
+            case METRE: return "m";
+            case KILOMETRE: return "km";
+            case MILE: return "mi";
+            default: return super.toString();
+        }
+    }
 }

@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class WorkoutSheetReader {
     private int nameIndex=0;
-    private int valueIndex=1;
+    private int descriptionIndex =1;
     private WorkoutTextParser parser = new WorkoutTextParser();
 
     public Map<String, Workout> readWorkouts(Sheet sheet) throws IOException {
@@ -39,8 +39,8 @@ public class WorkoutSheetReader {
     }
 
     private Workout readWorkout(Row row) throws IOException {
-        String value = row.getCell(valueIndex).getStringCellValue();
-        return parser.parse(value);
+        String description = row.getCell(descriptionIndex).getStringCellValue();
+        return parser.parse(description);
     }
 
     private void readHeaderRow(Row row) {
@@ -48,7 +48,7 @@ public class WorkoutSheetReader {
             if (cell.getCellType() != Cell.CELL_TYPE_STRING) continue;
 
             if ("Name".equals(cell.getStringCellValue())) nameIndex = cell.getColumnIndex();
-            if ("Description".equals(cell.getStringCellValue())) valueIndex = cell.getColumnIndex();
+            if ("Description".equals(cell.getStringCellValue())) descriptionIndex = cell.getColumnIndex();
         }
     }
 }

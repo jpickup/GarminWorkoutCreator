@@ -1,13 +1,12 @@
 package com.johnpickup.gui;
 
+import com.johnpickup.CalendarScheduleGenerator;
 import com.johnpickup.GarminScheduleGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.LogManager;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 /**
@@ -22,10 +21,13 @@ public class ScheduleConverterForm {
     private JButton fileChooserButton;
     private JButton directoryChooserButton;
     private JTextField outputDirField;
+    private JRadioButton rbGarmin;
+    private JRadioButton rbIcal;
 
-    private final GarminScheduleGenerator generator = new GarminScheduleGenerator();
+    private final GarminScheduleGenerator garminGenerator = new GarminScheduleGenerator();
+    private final CalendarScheduleGenerator calendarGenerator = new CalendarScheduleGenerator();
 
-    private ScheduleConversionWorker worker;
+    private SwingWorker<Object, Object> worker;
 
     private void init() {
         SwingMessageAppender appender = new SwingMessageAppender(loggingOutput);
@@ -33,73 +35,71 @@ public class ScheduleConverterForm {
 
         inputFileField.setText(System.getProperty("user.dir"));
 
-        fileChooserButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                final JFileChooser fc = new JFileChooser();
-                File f = new File(inputFileField.getText());
-                if (f.exists()) {
-                    if (f.isDirectory()) {
-                        fc.setCurrentDirectory(f);
-                    }
-                    else {
-                        fc.setCurrentDirectory(f.getParentFile());
-                    }
+        fileChooserButton.addActionListener(e -> {
+            final JFileChooser fc = new JFileChooser();
+            File f = new File(inputFileField.getText());
+            if (f.exists()) {
+                if (f.isDirectory()) {
+                    fc.setCurrentDirectory(f);
+                }
+                else {
+                    fc.setCurrentDirectory(f.getParentFile());
+                }
+            }
+
+            fc.setFileFilter(new FileFilter() {
+                @Override
+                public boolean accept(File f) {
+                    return f.getName().endsWith(".xls");
                 }
 
-                fc.setFileFilter(new FileFilter() {
-                    @Override
-                    public boolean accept(File f) {
-                        return f.getName().endsWith(".xls");
-                    }
-
-                    @Override
-                    public String getDescription() {
-                        return "Excel Files (*.xls)";
-                    }
-                });
-
-                int returnVal = fc.showOpenDialog(inputFileField);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File file = fc.getSelectedFile();
-                    inputFileField.setText(file.getAbsolutePath());
+                @Override
+                public String getDescription() {
+                    return "Excel Files (*.xls)";
                 }
+            });
+
+            int returnVal = fc.showOpenDialog(inputFileField);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                inputFileField.setText(file.getAbsolutePath());
             }
         });
 
-        directoryChooserButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                final JFileChooser fc = new JFileChooser();
-                fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                File dir = new File(outputDirField.getText());
-                if (dir.exists()) {
-                    fc.setCurrentDirectory(dir);
-                }
-                int returnVal = fc.showOpenDialog(outputDirField);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File file = fc.getSelectedFile();
-                    outputDirField.setText(file.getAbsolutePath());
-                }
+        directoryChooserButton.addActionListener(e -> {
+            final JFileChooser fc = new JFileChooser();
+            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            File dir = new File(outputDirField.getText());
+            if (dir.exists()) {
+                fc.setCurrentDirectory(dir);
+            }
+            int returnVal = fc.showOpenDialog(outputDirField);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                outputDirField.setText(file.getAbsolutePath());
             }
         });
 
-        convertButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File inputFile = new File(inputFileField.getText());
-                File outputDir = new File(outputDirField.getText());
+        convertButton.addActionListener(e -> {
+            File inputFile = new File(inputFileField.getText());
+            File outputDir = new File(outputDirField.getText());
 
-                try {
-                    if (worker != null) {
-                        worker.cancel(true);
-                    }
+            try {
+                if (worker != null) {
+                    worker.cancel(true);
+                }
 
-                    worker = new ScheduleConversionWorker(generator, inputFile, outputDir);
+                if (rbGarmin.isSelected()) {
+                    worker = new ScheduleConversionWorker(garminGenerator, inputFile, outputDir);
                     worker.execute();
-                } catch (Exception e1) {
-                    log.error(e1.getMessage());
                 }
+                if (rbIcal.isSelected()) {
+                    worker = new IcalConversionWorker(calendarGenerator, inputFile, outputDir);
+                    worker.execute();
+                }
+
+            } catch (Exception e1) {
+                log.error(e1.getMessage());
             }
         });
     }

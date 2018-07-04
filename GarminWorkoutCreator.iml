@@ -2,7 +2,6 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <option name="createStubs" value="true" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
@@ -20,5 +19,10 @@
     <orderEntry type="library" name="poi-3.11-beta2-20140822" level="project" />
     <orderEntry type="library" name="appbundler-1.0" level="project" />
     <orderEntry type="library" name="antlr-4.7.1-complete" level="project" />
+    <orderEntry type="library" name="ical4j-1.0.5" level="project" />
+    <orderEntry type="library" name="ical4j-3.0.1" level="project" />
+    <orderEntry type="library" name="biweekly-0.6.3-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="jackson" level="project" />
+    <orderEntry type="library" name="vinnie-2.0.2" level="project" />
   </component>
 </module>
