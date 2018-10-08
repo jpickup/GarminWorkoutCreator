@@ -1,6 +1,6 @@
 package com.johnpickup.gui;
 
-import com.johnpickup.GarminScheduleGenerator;
+import com.johnpickup.CalendarScheduleGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.LogManager;
 
@@ -8,24 +8,21 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
-/**
- * Simple GUI to drive the conversion
- */
 @Slf4j
-public class ScheduleConverterForm {
+public class CalendarConverterForm {
+    private JPanel contentPane;
     private JButton convertButton;
     private JTextField inputFileField;
-    private JTextArea loggingOutput;
-    private JPanel contentPane;
     private JButton fileChooserButton;
     private JButton directoryChooserButton;
     private JTextField outputDirField;
-    private JPanel bottomPanel;
+    private JTextArea loggingOutput;
     private JPanel inputFilePanel;
     private JPanel outputDirPanel;
+    private JPanel bottomPanel;
     private JScrollPane logPane;
 
-    private final GarminScheduleGenerator garminGenerator = new GarminScheduleGenerator();
+    private final CalendarScheduleGenerator calendarGenerator = new CalendarScheduleGenerator();
 
     private SwingWorker<Object, Object> worker;
 
@@ -34,6 +31,7 @@ public class ScheduleConverterForm {
         LogManager.getRootLogger().addAppender(appender);
 
         inputFileField.setText(System.getProperty("user.dir"));
+        outputDirField.setText(System.getProperty("user.dir"));
 
         fileChooserButton.addActionListener(e -> {
             final JFileChooser fc = new JFileChooser();
@@ -88,18 +86,19 @@ public class ScheduleConverterForm {
                 if (worker != null) {
                     worker.cancel(true);
                 }
+                    worker = new IcalConversionWorker(calendarGenerator, inputFile, outputDir);
+                    worker.execute();
 
-                worker = new ScheduleConversionWorker(garminGenerator, inputFile, outputDir);
-                worker.execute();
             } catch (Exception e1) {
                 log.error(e1.getMessage());
             }
         });
+
     }
 
     public static void display() {
-        JFrame frame = new JFrame("Garmin Workout Schedule Converter");
-        ScheduleConverterForm form = new ScheduleConverterForm();
+        JFrame frame = new JFrame("Garmin Workout Calendar Converter");
+        CalendarConverterForm form = new CalendarConverterForm();
         form.init();
         frame.setContentPane(form.contentPane);
 

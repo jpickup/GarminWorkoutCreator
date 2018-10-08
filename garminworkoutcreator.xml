@@ -26,23 +26,19 @@
     <exclude name="**/.hg/**"/>
     <exclude name="**/.svn/**"/>
     <exclude name="**/CVS/**"/>
-    <exclude name="**/RCS/**"/>
-    <exclude name="**/SCCS/**"/>
     <exclude name="**/__pycache__/**"/>
     <exclude name="**/_svn/**"/>
-    <exclude name="**/rcs/**"/>
     <exclude name="**/vssver.scc/**"/>
     <exclude name="**/vssver2.scc/**"/>
   </patternset>
   <patternset id="library.patterns">
     <include name="*.war"/>
     <include name="*.swc"/>
-    <include name="*.apk"/>
     <include name="*.zip"/>
-    <include name="*.ear"/>
     <include name="*.egg"/>
     <include name="*.ane"/>
     <include name="*.jar"/>
+    <include name="*.ear"/>
   </patternset>
   <patternset id="compiler.resources">
     <exclude name="**/?*.java"/>
@@ -63,8 +59,12 @@
     <fileset dir="${jdk.home.1.8}">
       <include name="jre/lib/charsets.jar"/>
       <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
       <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
       <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
       <include name="jre/lib/ext/sunec.jar"/>
       <include name="jre/lib/ext/sunjce_provider.jar"/>
       <include name="jre/lib/ext/sunpkcs11.jar"/>
@@ -73,7 +73,7 @@
       <include name="jre/lib/javaws.jar"/>
       <include name="jre/lib/jce.jar"/>
       <include name="jre/lib/jfr.jar"/>
-      <include name="jre/lib/jfxrt.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
       <include name="jre/lib/jsse.jar"/>
       <include name="jre/lib/management-agent.jar"/>
       <include name="jre/lib/plugin.jar"/>
@@ -84,6 +84,7 @@
       <include name="lib/javafx-doclet.jar"/>
       <include name="lib/javafx-mx.jar"/>
       <include name="lib/jconsole.jar"/>
+      <include name="lib/packager.jar"/>
       <include name="lib/sa-jdi.jar"/>
       <include name="lib/tools.jar"/>
     </fileset>
@@ -96,16 +97,16 @@
   
   <!-- Project Libraries -->
   
-  <path id="library.antlr-4.5.3-complete.classpath">
-    <pathelement location="${basedir}/lib/antlr-4.5.3-complete.jar"/>
-  </path>
-  
-  <path id="library.antlr-4.6-complete.classpath">
-    <pathelement location="${basedir}/lib/antlr-4.6-complete.jar"/>
-  </path>
-
   <path id="library.antlr-4.7.1-complete.classpath">
     <pathelement location="${basedir}/lib/antlr-4.7.1-complete.jar"/>
+  </path>
+  
+  <path id="library.appbundler-1.0.classpath">
+    <pathelement location="${basedir}/lib/appbundler-1.0.jar"/>
+  </path>
+
+  <path id="library.biweekly-0.6.3-snapshot.classpath">
+    <pathelement location="${basedir}/lib/biweekly-0.6.3-SNAPSHOT.jar"/>
   </path>
 
   <path id="library.fit.classpath">
@@ -116,7 +117,13 @@
     <pathelement location="${basedir}/lib/hamcrest-core-1.3.jar"/>
     <pathelement location="${basedir}/lib/junit-4.12.jar"/>
   </path>
-  
+
+  <path id="library.jackson.classpath">
+    <pathelement location="${basedir}/lib/jackson-annotations-2.6.0.jar"/>
+    <pathelement location="${basedir}/lib/jackson-core-2.6.1.jar"/>
+    <pathelement location="${basedir}/lib/jackson-databind-2.6.1.jar"/>
+  </path>
+
   <path id="library.log4j-1.2.13.classpath">
     <pathelement location="${basedir}/lib/log4j-1.2.13.jar"/>
   </path>
@@ -124,7 +131,7 @@
   <path id="library.lombok.classpath">
     <pathelement location="${basedir}/lib/lombok.jar"/>
   </path>
-  
+
   <path id="library.poi-3.11-beta2-20140822.classpath">
     <pathelement location="${basedir}/lib/poi-3.11-beta2-20140822.jar"/>
     <pathelement location="${basedir}/lib/poi-ooxml-3.11-beta2-20140822.jar"/>
@@ -135,13 +142,19 @@
     <pathelement location="${basedir}/lib/slf4j-api-1.7.22.jar"/>
     <pathelement location="${basedir}/lib/slf4j-log4j12-1.7.22.jar"/>
   </path>
+
+  <path id="library.vinnie-2.0.2.classpath">
+    <pathelement location="${basedir}/lib/vinnie-2.0.2.jar"/>
+  </path>
   <!-- Register Custom Compiler Taskdefs -->
   <property name="javac2.home" value="${idea.home}/lib"/>
   <path id="javac2.classpath">
-    <pathelement location="${javac2.home}/javac2.jar"/>
-    <pathelement location="${javac2.home}/jdom.jar"/>
-    <pathelement location="${javac2.home}/asm-all.jar"/>
-    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+    <fileset dir="${javac2.home}">
+      <include name="javac2.jar"/>
+      <include name="jdom.jar"/>
+      <include name="asm-all*.jar"/>
+      <include name="forms-*.jar"/>
+    </fileset>
   </path>
   <target name="register.custom.compilers">
     <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
@@ -160,7 +173,7 @@
   <property name="module.jdk.bin.garminworkoutcreator" value="${project.jdk.bin}"/>
   <property name="module.jdk.classpath.garminworkoutcreator" value="${project.jdk.classpath}"/>
   
-  <property name="compiler.args.garminworkoutcreator" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  <property name="compiler.args.garminworkoutcreator" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args} -XDignore.symbol.file=true"/>
   
   <property name="garminworkoutcreator.output.dir" value="${module.garminworkoutcreator.basedir}/out/production/GarminWorkoutCreator"/>
   <property name="garminworkoutcreator.testoutput.dir" value="${module.garminworkoutcreator.basedir}/out/test/GarminWorkoutCreator"/>
@@ -176,10 +189,12 @@
     <path refid="library.lombok.classpath"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
     <path refid="library.slf4j-api-1.7.22.classpath"/>
-    <path refid="library.antlr-4.5.3-complete.classpath"/>
-    <path refid="library.antlr-4.6-complete.classpath"/>
-    <path refid="library.antlr-4.7.1-complete.classpath"/>
     <path refid="library.poi-3.11-beta2-20140822.classpath"/>
+    <path refid="library.appbundler-1.0.classpath"/>
+    <path refid="library.antlr-4.7.1-complete.classpath"/>
+    <path refid="library.biweekly-0.6.3-snapshot.classpath"/>
+    <path refid="library.jackson.classpath"/>
+    <path refid="library.vinnie-2.0.2.classpath"/>
   </path>
   
   <path id="garminworkoutcreator.runtime.production.module.classpath">
@@ -189,10 +204,12 @@
     <path refid="library.lombok.classpath"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
     <path refid="library.slf4j-api-1.7.22.classpath"/>
-    <path refid="library.antlr-4.5.3-complete.classpath"/>
-    <path refid="library.antlr-4.6-complete.classpath"/>
-    <path refid="library.antlr-4.7.1-complete.classpath"/>
     <path refid="library.poi-3.11-beta2-20140822.classpath"/>
+    <path refid="library.appbundler-1.0.classpath"/>
+    <path refid="library.antlr-4.7.1-complete.classpath"/>
+    <path refid="library.biweekly-0.6.3-snapshot.classpath"/>
+    <path refid="library.jackson.classpath"/>
+    <path refid="library.vinnie-2.0.2.classpath"/>
   </path>
   
   <path id="garminworkoutcreator.module.classpath">
@@ -203,10 +220,12 @@
     <path refid="library.lombok.classpath"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
     <path refid="library.slf4j-api-1.7.22.classpath"/>
-    <path refid="library.antlr-4.5.3-complete.classpath"/>
-    <path refid="library.antlr-4.6-complete.classpath"/>
-    <path refid="library.antlr-4.7.1-complete.classpath"/>
     <path refid="library.poi-3.11-beta2-20140822.classpath"/>
+    <path refid="library.appbundler-1.0.classpath"/>
+    <path refid="library.antlr-4.7.1-complete.classpath"/>
+    <path refid="library.biweekly-0.6.3-snapshot.classpath"/>
+    <path refid="library.jackson.classpath"/>
+    <path refid="library.vinnie-2.0.2.classpath"/>
   </path>
   
   <path id="garminworkoutcreator.runtime.module.classpath">
@@ -217,10 +236,12 @@
     <path refid="library.lombok.classpath"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
     <path refid="library.slf4j-api-1.7.22.classpath"/>
-    <path refid="library.antlr-4.5.3-complete.classpath"/>
-    <path refid="library.antlr-4.6-complete.classpath"/>
-    <path refid="library.antlr-4.7.1-complete.classpath"/>
     <path refid="library.poi-3.11-beta2-20140822.classpath"/>
+    <path refid="library.appbundler-1.0.classpath"/>
+    <path refid="library.antlr-4.7.1-complete.classpath"/>
+    <path refid="library.biweekly-0.6.3-snapshot.classpath"/>
+    <path refid="library.jackson.classpath"/>
+    <path refid="library.vinnie-2.0.2.classpath"/>
   </path>
   
   
@@ -345,8 +366,8 @@
     <bundleapp outputdirectory="${build.output.dir}"
                name="GarminWorkoutCreator"
                displayname="Garmin Workout Creator"
-               identifier="com.johnpickup.gui.ScheduleConverterForm"
-               mainclassname="com.johnpickup.gui.ScheduleConverterForm">
+               identifier="com.johnpickup.gui.MainMenuForm"
+               mainclassname="com.johnpickup.gui.MainMenuForm">
       <runtime dir="${env.JAVA_HOME}" />
       <classpath refid="build.classpath"/>
     </bundleapp>
@@ -414,7 +435,7 @@
     </exec>
 
     <!-- Add a symbolic link to the Applications directory -->
-    <symlink link="${mountdir}/${app.name}" resource="/Applications"/>
+    <symlink link="${mountdir}/Applications" resource="/Applications" overwrite="false"/>
 
     <!-- Detach the temporary image -->
     <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
