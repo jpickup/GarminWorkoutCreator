@@ -1,3 +1,6 @@
+NOTE: project migrated to https://github.com/jpickup/GarminTools/, which has some additional tools (GPX to route). Active development is now on that project rather than here.
+
+
 # GarminWorkoutCreator
 Create workouts and workout schedules for Garmin devices using an Excel spreadsheet to define them. 
 
